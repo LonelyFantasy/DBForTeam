@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
 /**
 * @author Lonely_Fantasy 
 * @version 创建时间：2021年6月10日 下午1:29:44
-* 类说明
+* 类说明在这
 */
 public class Login extends JFrame {
 
