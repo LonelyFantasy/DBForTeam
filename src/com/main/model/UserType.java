@@ -2,7 +2,7 @@ package com.main.model;
 /**
 * @author Lonely_Fantasy 
 * @version 创建时间：2021年6月10日 下午1:40:29
-* 类说明
+* 类说明 456
 */
 public enum UserType {
 	
