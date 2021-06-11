@@ -1,6 +1,5 @@
 package com.main.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -24,7 +23,7 @@ import java.awt.event.ActionEvent;
 /**
 * @author Lonely_Fantasy 
 * @version 创建时间：2021年6月10日 下午1:29:44
-* 类说明123
+* 类说明
 */
 public class Login extends JFrame {
 
@@ -97,7 +96,7 @@ public class Login extends JFrame {
 		user_type_combobox = new JComboBox();
 		user_type_combobox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		user_type_combobox.setBounds(203, 154, 110, 28);
-		user_type_combobox.setModel(new DefaultComboBoxModel(new UserType[] {UserType.SYSTEM_ADMIN, UserType.BUYER, UserType.MANAGER}));
+		user_type_combobox.setModel(new DefaultComboBoxModel(new UserType[] {UserType.ADMIN, UserType.STUDENT, UserType.TEACHER}));
 		contentPane.add(user_type_combobox);
 		
 		JButton btnLogin = new JButton("\u767B\u5F55");

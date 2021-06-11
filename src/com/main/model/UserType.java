@@ -6,9 +6,9 @@ package com.main.model;
 */
 public enum UserType {
 	
-	SYSTEM_ADMIN("超级管理员",0),
-	BUYER("采购员", 1),
-	MANAGER("仓库管理员", 2);
+	ADMIN("管理员",0),
+	STUDENT("学生", 1),
+	TEACHER("老师", 2);
 	
 	private String name;
 	private int index;
