@@ -1,33 +1,36 @@
 package com.main.model;
 /**
  * @author Lonely_Fantasy
- * @version 创建时间：2021年6月10日 下午3:41:14
+ * @version 创建时间：2021年6月12日 下午9:42:14
  * 类说明
  */
 public class SystemAdmin {
 
-	private String id;
+	private int id;
 	private String name;
-	private String phone_number;
 	private String password;
 
-	public SystemAdmin(String name, String password) {//登录初始化方法
+	public SystemAdmin() {
+
+	}
+
+	public SystemAdmin(String name, String password) {
 		this.name = name;
 		this.password = password;
 	}
 
-	public SystemAdmin(String id,String name, String phone_number, String password) {//账户信息初始化方法
+	public SystemAdmin(int id, String name, String password) {
 		this.id = id;
 		this.name = name;
-		this.phone_number = phone_number;
 		this.password = password;
+
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -39,14 +42,6 @@ public class SystemAdmin {
 		this.name = name;
 	}
 
-	public String getPhone_number() {
-		return phone_number;
-	}
-
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -55,5 +50,8 @@ public class SystemAdmin {
 		this.password = password;
 	}
 
+	public String toString() {
+		return name+" "+password;
+	}
 
 }

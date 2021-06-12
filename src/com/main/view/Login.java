@@ -1,5 +1,6 @@
 package com.main.view;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.main.dao.AdminDao;
+import com.main.model.SystemAdmin;
 import com.main.model.UserType;
 
 import javax.swing.JLabel;
@@ -142,18 +144,22 @@ public class Login extends JFrame {
 		UserType userType = (UserType) this.user_type_combobox.getSelectedItem();
 		if("系统管理员".equals(userType.getName())){
 			AdminDao adminDao = new AdminDao();
-			if(adminDao.selectAdmin(name, password)) {
-				JOptionPane.showMessageDialog(this, "登陆成功");
+			SystemAdmin admin = adminDao.selectAdmin(name, password);
+			if(admin == null) {
+				JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
+				return;
 			}
-			else {
-				JOptionPane.showMessageDialog(this, "登陆失败");
-			}
+			IndexFrame indexFrame = new IndexFrame(userType, admin);
+			indexFrame.setVisible(true);
+			this.dispose();
 		}
-		else if("学生".equals(userType.getName())){
 
+		if("学生".equals(userType.getName())){
+
+			return;
 		}
-		else {
-
+		if("教师".equals(userType.getName())){
+			return;
 		}
 
 	}
