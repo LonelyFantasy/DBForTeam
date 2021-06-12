@@ -1,21 +1,21 @@
 package com.main.model;
 /**
-* @author Lonely_Fantasy 
-* @version 创建时间：2021年6月10日 下午3:41:14
-* 类说明
-*/
+ * @author Lonely_Fantasy
+ * @version 创建时间：2021年6月10日 下午3:41:14
+ * 类说明
+ */
 public class SystemAdmin {
 
 	private String id;
 	private String name;
 	private String phone_number;
 	private String password;
-	
+
 	public SystemAdmin(String name, String password) {//登录初始化方法
 		this.name = name;
 		this.password = password;
 	}
-	
+
 	public SystemAdmin(String id,String name, String phone_number, String password) {//账户信息初始化方法
 		this.id = id;
 		this.name = name;
@@ -54,6 +54,6 @@ public class SystemAdmin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
+
 }
