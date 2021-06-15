@@ -11,35 +11,33 @@ import java.util.Properties;
  */
 public class ReadProperties {
 
-	private static ReadProperties rp;
-	public String dbUrl;
-	public String dbUsername;
-	public String dbPassword;
+    private static ReadProperties rp;
+    public String dbUrl;
+    public String dbUsername;
+    public String dbPassword;
 
+    private ReadProperties() {
+        loadProperties();
+    }
 
-	private ReadProperties() {
-		loadProperties();
-	}
+    public static ReadProperties initial() {//防止数据库重复连接
+        if (rp == null)
+            rp = new ReadProperties();
+        return rp;
+    }
 
-	public static ReadProperties initial() {//防止数据库重复连接
-		if(rp == null)
-			rp = new ReadProperties();
-		return rp;
-	}
-
-	private void loadProperties() {
-		InputStream ips = getClass().getResourceAsStream("/db.properties");
-		Properties properties = new Properties();
-
-		try {
-			properties.load(ips);
-			this.dbUrl = properties.getProperty("dburl");
-			this.dbUsername = properties.getProperty("username");
-			this.dbPassword = properties.getProperty("password");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    private void loadProperties() {
+        InputStream ips = getClass().getResourceAsStream("/db.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(ips);
+            this.dbUrl = properties.getProperty("dburl");
+            this.dbUsername = properties.getProperty("username");
+            this.dbPassword = properties.getProperty("password");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -24,11 +24,9 @@ public class ClassListFrame extends JInternalFrame {
     private JTextField classSecondary;
     private JTextField classGrade;
     private JTextField classMajor;
-    private JTextArea  classInfo;
+    private JTextArea classInfo;
 
     private DefaultTableModel dtm = null;
-
-
 
 
     /**
@@ -52,7 +50,7 @@ public class ClassListFrame extends JInternalFrame {
         classListTable.setFont(new Font("微软雅黑", Font.BOLD, 14));
 
         //表格属性
-        classListTable.setBackground(new Color(230,230,255));//表背景属性
+        classListTable.setBackground(new Color(230, 230, 255));//表背景属性
         classListTable.getTableHeader().setReorderingAllowed(false);//表头不可拖动
         classListTable.setRowHeight(30);//表格高度
 
@@ -62,9 +60,9 @@ public class ClassListFrame extends JInternalFrame {
         classListTable.setDefaultRenderer(Object.class, renderer);
 
         classListTable.setModel(new DefaultTableModel(
-                new Object[][] {
+                new Object[][]{
                 },
-                new String[] {
+                new String[]{
                         "\u73ED\u7EA7\u7F16\u53F7", "\u73ED\u7EA7\u540D\u79F0", "\u6240\u5C5E\u5E74\u7EA7", "\u6240\u5C5E\u5B66\u9662", "\u6240\u5C5E\u4E13\u4E1A", "\u73ED\u7EA7\u4FE1\u606F"
                 }
         ) {
@@ -195,7 +193,7 @@ public class ClassListFrame extends JInternalFrame {
         classInfo.setBounds(111, 551, 389, 109);
         getContentPane().add(classInfo);
 
-        this.dtm = (DefaultTableModel)classListTable.getModel();
+        this.dtm = (DefaultTableModel) classListTable.getModel();
 
         queryAllClass();//打开窗口自动加载全部信息
     }
@@ -217,7 +215,7 @@ public class ClassListFrame extends JInternalFrame {
         String infoString = this.classInfo.getText();
 
         //判断任意输入框有无内容
-        if(StringUtil.isEmpty(nameString)&&StringUtil.isEmpty(gradeString)&&StringUtil.isEmpty(secondaryString)&&StringUtil.isEmpty(majorString)&&StringUtil.isEmpty(infoString)) {
+        if (StringUtil.isEmpty(nameString) && StringUtil.isEmpty(gradeString) && StringUtil.isEmpty(secondaryString) && StringUtil.isEmpty(majorString) && StringUtil.isEmpty(infoString)) {
             queryAllClass();
             return;
         }
@@ -233,7 +231,7 @@ public class ClassListFrame extends JInternalFrame {
         ClassDao classDao = new ClassDao();
         List<StudentClass> allClassList = classDao.querySomeClass(tempClass);
 
-        for(StudentClass studentClass : allClassList) {
+        for (StudentClass studentClass : allClassList) {
             Vector v = new Vector();
             v.add(studentClass.getId());
             v.add(studentClass.getGrade());
@@ -261,7 +259,7 @@ public class ClassListFrame extends JInternalFrame {
         ClassDao classDao = new ClassDao();
         List<StudentClass> allClassList = classDao.queryAllClass();
 
-        for(StudentClass studentClass : allClassList) {
+        for (StudentClass studentClass : allClassList) {
             Vector v = new Vector();
             v.add(studentClass.getId());
             v.add(studentClass.getGrade());

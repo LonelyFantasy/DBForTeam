@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DbUtil {
-    private static String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+    private static String jdbcDriver = "com.mysql.cj.jdbc.Driver";//使用新版本的数据库连接方法，旧版本部分功能会报错
     private static ReadProperties rp = ReadProperties.initial();
 
     public static Connection getConnection() {

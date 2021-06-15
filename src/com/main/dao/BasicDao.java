@@ -1,6 +1,6 @@
 package com.main.dao;
-/**
- * @author Lonely_Fantasy
+/*
+  @author Lonely_Fantasy
  * @version 创建时间：2021年6月11日 下午9:34:39
  * 类说明：程序基础类，保存父类
  */
