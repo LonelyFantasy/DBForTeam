@@ -39,12 +39,13 @@ public class AdminDao extends BasicDao{
     //修改管理员密码
     public String resetPassword(SystemAdmin admin, String newPassword) {
         String resultString = "操作失败";
-        String sqlString = "UPDATE s_admin SET password = ? WHERE name = ? AND password = ?";
+        String sqlString = "UPDATE s_admin SET password = ? WHERE name = ? AND password = ? AND id = ?";
         try {
             this.pStatement = this.con.prepareStatement(sqlString);
             this.pStatement.setString(1, newPassword);
             this.pStatement.setString(2, admin.getName());
             this.pStatement.setString(3, admin.getPassword());
+            this.pStatement.setInt(4, admin.getId());
             if(this.pStatement.executeUpdate() > 0) {
                 resultString = "操作成功！";
                 IndexFrame.admin.setPassword(newPassword);//更新程序内保存的密码

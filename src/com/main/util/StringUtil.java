@@ -8,6 +8,13 @@ public class StringUtil {
 
     //判断字符串是否为空
     public static boolean isEmpty(String str) {
-        return "".equals(str) || str == null;
+        if("".equals(str) || str == null)
+            return true;
+        return false;
+    }
+
+    //判断两个密码是否输入相同
+    public static boolean isSame(String str, String strcheck) {
+        return str.equals(strcheck);
     }
 }

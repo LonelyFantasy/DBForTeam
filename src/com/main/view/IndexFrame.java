@@ -15,6 +15,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.main.model.SystemAdmin;
 import com.main.model.UserType;
+import com.main.view.studentClass.AddClassFrame;
+import com.main.view.studentClass.ClassListFrame;
 import com.main.view.systemManage.ResetPassword;
 
 import java.awt.Toolkit;
@@ -33,44 +35,69 @@ public class IndexFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JDesktopPane desktopPane;
+
 	private ResetPassword resetPassword = null;
+	private ClassListFrame classListFrame = null;
+	private AddClassFrame addClassFrame = null;
+
+
 	public static UserType userType;//接受登录数据
 	public static SystemAdmin admin;//接受登录数据
-
-	/**
-	 * Launch the application.
-	 */
-
+	public static String adminPassword;//接受登录数据
 
 	/**
 	 * Create the frame.
 	 */
-	public IndexFrame(UserType u, SystemAdmin a) {
+	public IndexFrame(UserType u, SystemAdmin a, String p) {
 		userType = u;
 		admin = a;
+		adminPassword = p;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(IndexFrame.class.getResource("/images/main_icon.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 700);
+		setBounds(100, 100, 1100, 950);
 		setTitle("\u7BA1\u7406\u4E3B\u9875");
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		setJMenuBar(menuBar);
 
-		JMenu mnNewMenu = new JMenu("\u7528\u6237\u7BA1\u7406");
-		mnNewMenu.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/user-filling.png")));
+		JMenu mnNewMenu = new JMenu("\u73ED\u7EA7\u7BA1\u7406");
+		mnNewMenu.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/dynamic-filling.png")));
 		mnNewMenu.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("\u7528\u6237\u5217\u8868");
-		mntmNewMenuItem.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
+		JMenuItem mntmNewMenuItem = new JMenuItem("\u6DFB\u52A0\u73ED\u7EA7");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				addStudentClass(ae);
+			}
+		});
+		mntmNewMenuItem.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/add-circle.png")));
 		mntmNewMenuItem.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		mnNewMenu.add(mntmNewMenuItem);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u6DFB\u52A0\u7528\u6237");
-		mntmNewMenuItem_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/adjust.png")));
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u73ED\u7EA7\u5217\u8868");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				studentClassList(ae);
+			}
+		});
+		mntmNewMenuItem_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
 		mntmNewMenuItem_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		mnNewMenu.add(mntmNewMenuItem_1);
+
+		JMenu mnNewMenu_1 = new JMenu("\u5B66\u751F\u7BA1\u7406");
+		mnNewMenu_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/group-filled-persons.png")));
+		mnNewMenu_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		menuBar.add(mnNewMenu_1);
+
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u6DFB\u52A0\u73ED\u7EA7");
+		mntmNewMenuItem_2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_2);
+
+		JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("\u73ED\u7EA7\u5217\u8868");
+		mntmNewMenuItem_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_1_1);
 
 		JMenu mnNewMenu_4 = new JMenu("\u6211\u7684\u8D26\u6237");
 		mnNewMenu_4.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/user-filling.png")));
@@ -78,6 +105,11 @@ public class IndexFrame extends JFrame {
 		menuBar.add(mnNewMenu_4);
 
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u8D26\u6237\u4FE1\u606F");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				myAccount(ae);
+			}
+		});
 		mntmNewMenuItem_8.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/browse.png")));
 		mntmNewMenuItem_8.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 		mnNewMenu_4.add(mntmNewMenuItem_8);
@@ -129,7 +161,34 @@ public class IndexFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	//系统管理员修改密码
+	//我的账户----账户信息
+	protected void myAccount(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "账户名称："+ admin.getName() +"\n账户类别：" + userType);
+	}
+
+	//班级管理----班级列表
+	protected void studentClassList(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		if (classListFrame == null) {
+			classListFrame = new ClassListFrame();
+			desktopPane.add(classListFrame);
+		}
+		classListFrame.setVisible(true);
+
+	}
+
+	//班级管理----添加班级
+	protected void addStudentClass(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		if(addClassFrame == null) {
+			addClassFrame = new AddClassFrame();
+			desktopPane.add(addClassFrame);
+		}
+		addClassFrame.setVisible(true);
+	}
+
+	//系统管理员----修改密码
 	protected void resetPassword(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		if(resetPassword == null) {
@@ -138,5 +197,4 @@ public class IndexFrame extends JFrame {
 		}
 		resetPassword.setVisible(true);
 	}
-
 }

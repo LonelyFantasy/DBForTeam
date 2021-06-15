@@ -67,34 +67,36 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("\u5546\u54C1\u5E93\u5B58\u7BA1\u7406\u7CFB\u7EDF");
-		lblNewLabel.setFont(new Font("微软雅黑", Font.PLAIN, 20));
+		JLabel lblNewLabel = new JLabel("\u5B66\u751F\u4FE1\u606F\u7BA1\u7406\u7CFB\u7EDF");
+		lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
 		lblNewLabel.setBounds(132, 10, 160, 28);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblUsername = new JLabel("\u7528\u6237\u540D\uFF1A");
 		lblUsername.setIcon(new ImageIcon(Login.class.getResource("/images/user.png")));
-		lblUsername.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		lblUsername.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		lblUsername.setBounds(78, 48, 94, 28);
 		contentPane.add(lblUsername);
 
 		adminName = new JTextField();
+		adminName.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		adminName.setColumns(10);
 		adminName.setBounds(182, 48, 155, 28);
 		contentPane.add(adminName);
 
 		JLabel lblPassword = new JLabel(" \u5BC6  \u7801\uFF1A");
 		lblPassword.setIcon(new ImageIcon(Login.class.getResource("/images/lock.png")));
-		lblPassword.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		lblPassword.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		lblPassword.setBounds(78, 98, 94, 28);
 		contentPane.add(lblPassword);
 
 		adminPassword = new JPasswordField();
+		adminPassword.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		adminPassword.setBounds(182, 98, 155, 28);
 		contentPane.add(adminPassword);
 
 		JLabel lblNewLabel_1_1_1 = new JLabel("\u7528\u6237\u7C7B\u578B\uFF1A");
-		lblNewLabel_1_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		lblNewLabel_1_1_1.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		lblNewLabel_1_1_1.setBounds(110, 154, 83, 28);
 		contentPane.add(lblNewLabel_1_1_1);
 
@@ -149,7 +151,7 @@ public class Login extends JFrame {
 				JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
 				return;
 			}
-			IndexFrame indexFrame = new IndexFrame(userType, admin);
+			IndexFrame indexFrame = new IndexFrame(userType, admin, password);
 			indexFrame.setVisible(true);
 			this.dispose();
 		}
