@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
 import com.main.util.CollegeStructure;
+import com.main.view.IndexFrame;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -41,7 +42,7 @@ public class AddClassFrame extends JInternalFrame {
      */
     public AddClassFrame() {
         setFrameIcon(new ImageIcon(AddClassFrame.class.getResource("/images/add-circle.png")));
-        setIconifiable(true);
+        setIconifiable(true);//最小化
         setTitle("\u6DFB\u52A0\u73ED\u7EA7");
         setBounds(100, 100, 650, 400);
         getContentPane().setLayout(null);
@@ -148,14 +149,16 @@ public class AddClassFrame extends JInternalFrame {
         String major = this.classMajorComb.getSelectedItem().toString();
         String info = this.classInfoText.getText();
 
+        //班级编号生成
         String id =String.valueOf(Integer.parseInt(grade)%2000) + "00" + CollegeStructure.majorId[classSecondaryComb.getSelectedIndex()][classMajorComb.getSelectedIndex()];
-
         StudentClass tempClass = new StudentClass(id, grade, name, secondary, major, info);
 
         ClassDao classDao = new ClassDao();
         JOptionPane.showMessageDialog(this, classDao.addClass(tempClass));
-
-
+        
+        if(IndexFrame.classListFrame != null) {
+        	IndexFrame.classListFrame.queryAllClass();
+        }
     }
 
     //重置内容按钮

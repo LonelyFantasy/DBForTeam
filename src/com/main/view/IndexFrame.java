@@ -2,6 +2,7 @@ package com.main.view;
 
 import com.main.model.SystemAdmin;
 import com.main.model.UserType;
+import com.main.view.student.AddStudentFrame;
 import com.main.view.studentClass.AddClassFrame;
 import com.main.view.studentClass.ClassListFrame;
 import com.main.view.systemManage.ResetPassword;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 
 /**
  * @author Lonely_Fantasy
@@ -22,9 +24,10 @@ public class IndexFrame extends JFrame {
     private JPanel contentPane;
     private JDesktopPane desktopPane;
 
-    private ResetPassword resetPassword = null;
-    private ClassListFrame classListFrame = null;
-    private AddClassFrame addClassFrame = null;
+    public static ResetPassword resetPassword = null;
+    public static ClassListFrame classListFrame = null;
+    public static AddClassFrame addClassFrame = null;
+    public static AddStudentFrame addStudentFrame = null;
 
 
     public static UserType userType;//接受登录数据
@@ -77,11 +80,18 @@ public class IndexFrame extends JFrame {
         mnNewMenu_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
         menuBar.add(mnNewMenu_1);
 
-        JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u6DFB\u52A0\u73ED\u7EA7");
+        JMenuItem mntmNewMenuItem_2 = new JMenuItem("添加学生");
+        mntmNewMenuItem_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		addStudentInfo();
+        	}
+        });
+        mntmNewMenuItem_2.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/add-circle.png")));
         mntmNewMenuItem_2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu_1.add(mntmNewMenuItem_2);
 
-        JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("\u73ED\u7EA7\u5217\u8868");
+        JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("学生列表");
+        mntmNewMenuItem_1_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
         mntmNewMenuItem_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu_1.add(mntmNewMenuItem_1_1);
 
@@ -147,7 +157,24 @@ public class IndexFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    //更多----关于软件
+    //学生管理----添加学生
+    protected void addStudentInfo() {
+		// TODO Auto-generated method stub
+		if(addStudentFrame == null) {
+			addStudentFrame = new AddStudentFrame();
+			desktopPane.add(addStudentFrame);
+		}
+		addStudentFrame.setVisible(true);
+		//保持窗体最前
+		try {
+			addStudentFrame.setSelected(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	//更多----关于软件
     protected void aboutSoftware() {
         // TODO Auto-generated method stub
         JOptionPane.showMessageDialog(null, "使用Java Swing开发\n数据库使用MySQL", "关于软件", JOptionPane.INFORMATION_MESSAGE);
@@ -167,7 +194,13 @@ public class IndexFrame extends JFrame {
             desktopPane.add(classListFrame);
         }
         classListFrame.setVisible(true);
-
+        //保持窗体最前
+        try {
+			classListFrame.setSelected(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     //班级管理----添加班级

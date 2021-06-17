@@ -3,6 +3,7 @@ package com.main.view.studentClass;
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
 import com.main.util.StringUtil;
+import com.mysql.cj.protocol.result.AbstractResultsetRow;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -12,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author Lonely_Fantasy
@@ -25,6 +28,8 @@ public class ClassListFrame extends JInternalFrame {
     private JTextField classGrade;
     private JTextField classMajor;
     private JTextArea classInfo;
+    private JButton editButton;
+    private JButton deleteButton;
 
     private DefaultTableModel dtm = null;
 
@@ -42,17 +47,26 @@ public class ClassListFrame extends JInternalFrame {
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 10, 864, 425);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         getContentPane().add(scrollPane);
         getContentPane().setLayout(null);
         setClosable(true);
 
         classListTable = new JTable();
+        classListTable.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent me) {
+        		AbstractResultsetRow(me);
+        	}
+        });
         classListTable.setFont(new Font("微软雅黑", Font.BOLD, 14));
 
         //表格属性
         classListTable.setBackground(new Color(230, 230, 255));//表背景属性
         classListTable.getTableHeader().setReorderingAllowed(false);//表头不可拖动
         classListTable.setRowHeight(30);//表格高度
+        classListTable.setShowGrid(false);
+        classListTable.setShowHorizontalLines(false);
 
         //表格居中
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -159,17 +173,27 @@ public class ClassListFrame extends JInternalFrame {
         btnNewButton_1.setBounds(557, 501, 93, 25);
         getContentPane().add(btnNewButton_1);
 
-        JButton btnNewButton_2 = new JButton("\u5220\u9664");
-        btnNewButton_2.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/ashbin-fill.png")));
-        btnNewButton_2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-        btnNewButton_2.setBounds(704, 445, 93, 25);
-        getContentPane().add(btnNewButton_2);
+        deleteButton = new JButton("\u5220\u9664");
+        deleteButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		deleteButton();
+        	}
+        });
+        deleteButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/ashbin-fill.png")));
+        deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+        deleteButton.setBounds(704, 501, 93, 25);
+        getContentPane().add(deleteButton);
 
-        JButton btnNewButton_3 = new JButton("\u7F16\u8F91");
-        btnNewButton_3.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/editor.png")));
-        btnNewButton_3.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-        btnNewButton_3.setBounds(704, 501, 93, 25);
-        getContentPane().add(btnNewButton_3);
+        editButton = new JButton("\u7F16\u8F91");
+        editButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
+        editButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/editor.png")));
+        editButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+        editButton.setBounds(704, 445, 93, 25);
+        getContentPane().add(editButton);
 
         JLabel lblNewLabel_1_3 = new JLabel("\u73ED\u7EA7\u4FE1\u606F");
         lblNewLabel_1_3.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/namecard.png")));
@@ -198,14 +222,37 @@ public class ClassListFrame extends JInternalFrame {
         queryAllClass();//打开窗口自动加载全部信息
     }
 
+    //删除班级
+    protected void deleteButton() {
+		// TODO Auto-generated method stub
+		if(JOptionPane.showConfirmDialog(this, "是否删除此班级呢？","正在删除此班级...", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.OK_OPTION);{
+			String idString = dtm.getValueAt(this.classListTable.getSelectedRow(), 0).toString();//获取选择班级的编号
+			ClassDao classDao = new ClassDao();
+			JOptionPane.showMessageDialog(this, classDao.deleteClass(idString));
+		}
+		queryAllClass();//删除完后刷新表格
+	}
 
+	//点击表格事件设置
+    protected void AbstractResultsetRow(MouseEvent me) {
+		// TODO Auto-generated method stub
+		this.className.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 1).toString());//班级名称
+		this.classGrade.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 2).toString());//所属年级
+		this.classSecondary.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 3).toString());//所属学院
+		this.classMajor.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 4).toString());//所属专业
+		this.classInfo.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 5).toString());//班级信息
+		this.editButton.setEnabled(true);
+		this.deleteButton.setEnabled(true);
+	}
+
+	//刷新并获取整表内容
     protected void refreshTable() {
         // TODO Auto-generated method stub
         resetButton();
         queryAllClass();
     }
 
-
+    //条件搜索
     protected void selectSomeoneClass(ActionEvent ae) {
         // TODO Auto-generated method stub
         String nameString = this.className.getText();
@@ -231,6 +278,7 @@ public class ClassListFrame extends JInternalFrame {
         ClassDao classDao = new ClassDao();
         List<StudentClass> allClassList = classDao.querySomeClass(tempClass);
 
+        //使用Vector存放数据
         for (StudentClass studentClass : allClassList) {
             Vector v = new Vector();
             v.add(studentClass.getId());
@@ -244,16 +292,17 @@ public class ClassListFrame extends JInternalFrame {
 
     }
 
-
+    //重置内容按钮
     protected void resetButton() {
         // TODO Auto-generated method stub
         this.className.setText("");
         this.classGrade.setText("");
         this.classSecondary.setText("");
         this.classMajor.setText("");
+        this.classInfo.setText("");
     }
 
-
+    //获取整表内容
     public void queryAllClass() {
         dtm.setRowCount(0);
         ClassDao classDao = new ClassDao();
@@ -269,6 +318,10 @@ public class ClassListFrame extends JInternalFrame {
             v.add(studentClass.getInfo());
             dtm.addRow(v);
         }
+        //按钮默认设置不可点击
+        this.editButton.setEnabled(false);
+        this.deleteButton.setEnabled(false);
+        
     }
 
     //重写这个窗体的关闭按键方法，防止窗口重复出现

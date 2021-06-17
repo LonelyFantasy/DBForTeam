@@ -89,7 +89,6 @@ public class ClassDao extends BasicDao{
         return array;
     }
 
-
     //按条件查询班级
     public ArrayList <StudentClass> querySomeClass(StudentClass tempClass){
         ArrayList<StudentClass> arrays = new ArrayList<StudentClass>();
@@ -122,4 +121,25 @@ public class ClassDao extends BasicDao{
         return arrays;
     }
 
+    //删除班级
+    public String deleteClass(String id) {
+    	String resultString = "删除失败";
+    	String sqlString = "DELETE FROM s_class WHERE id = ?";
+    	
+    	try {
+			this.pStatement = this.con.prepareStatement(sqlString);
+			this.pStatement.setString(1, id);
+			if(this.pStatement.executeUpdate() > 0) {
+				resultString = "删除成功";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			this.close();
+		}
+    	return resultString;
+    }
+    
+    
 }
