@@ -87,8 +87,10 @@ public class StudentClass {
         this.info = info;
     }
 
-
-
+    //重写toString方法，返回班级名字
+    public String toString() {
+    	return name;
+    }
 
 
 }
