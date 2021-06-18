@@ -289,7 +289,8 @@ public class StudentListFrame extends JInternalFrame {
 
 	//删除学生信息（和删除按钮有关系）
 	protected void deleteButton(ActionEvent ae) {
-
+            String id=dtm.getValueAt(studentList.getSelectedRow(),0).toString();
+            System.out.println(id);
 	}
 
 	//搜索按钮
