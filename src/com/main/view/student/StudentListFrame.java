@@ -287,7 +287,7 @@ public class StudentListFrame extends JInternalFrame {
 		quaryAllStudent();
 	}
 
-	//删除按钮的点击动作-- 删除学生信息
+	//删除学生信息（和删除按钮有关系）
 	protected void deleteButton(ActionEvent ae) {
 
 	}
