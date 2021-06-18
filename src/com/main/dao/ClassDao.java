@@ -141,5 +141,52 @@ public class ClassDao extends BasicDao{
     	return resultString;
     }
     
+    //根据年级，学院，专业进行班级查找
+    public ArrayList <StudentClass> querySomeClass(String grade, String secondary, String major){
+    	ArrayList<StudentClass> tempArrayList = new ArrayList<StudentClass>();
+    	String sqlString = "SELECT id, name FROM s_class WHERE grade = ? AND secondary = ? AND major = ?";
+    	
+    	try {
+			this.pStatement = this.con.prepareStatement(sqlString);
+			this.pStatement.setString(1, grade);//把占位符替换成需要的东西
+			this.pStatement.setString(2, secondary);
+			this.pStatement.setString(3, major);
+			ResultSet executeQuery = this.pStatement.executeQuery();
+			while(executeQuery.next()) {
+				StudentClass tempClass = new StudentClass();
+				tempClass.setId(executeQuery.getString("id"));
+				tempClass.setName(executeQuery.getString("name"));
+				tempArrayList.add(tempClass);
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			this.close();
+		}
+    	return  tempArrayList;
+    	
+    }
     
+    //根据班级编号对班级进行查找，查找成功返回bool值
+    public boolean querySomeClass(String classId) {
+    	boolean result = false;
+    	String sqlString = "SELECT name FROM s_class WHERE id = " + classId;
+    	
+    	try {
+			this.pStatement = this.con.prepareStatement(sqlString);
+			ResultSet executeQuery = this.pStatement.executeQuery();
+			if(executeQuery.next()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			this.close();
+		}
+    	
+    	return result;
+    	
+    }
 }

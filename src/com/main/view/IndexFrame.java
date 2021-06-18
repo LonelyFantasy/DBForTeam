@@ -3,6 +3,7 @@ package com.main.view;
 import com.main.model.SystemAdmin;
 import com.main.model.UserType;
 import com.main.view.student.AddStudentFrame;
+import com.main.view.student.StudentListFrame;
 import com.main.view.studentClass.AddClassFrame;
 import com.main.view.studentClass.ClassListFrame;
 import com.main.view.systemManage.ResetPassword;
@@ -28,6 +29,7 @@ public class IndexFrame extends JFrame {
     public static ClassListFrame classListFrame = null;
     public static AddClassFrame addClassFrame = null;
     public static AddStudentFrame addStudentFrame = null;
+    public static StudentListFrame studentListFrame = null;
 
 
     public static UserType userType;//接受登录数据
@@ -91,6 +93,11 @@ public class IndexFrame extends JFrame {
         mnNewMenu_1.add(mntmNewMenuItem_2);
 
         JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("学生列表");
+        mntmNewMenuItem_1_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		studentList();
+        	}
+        });
         mntmNewMenuItem_1_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
         mntmNewMenuItem_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu_1.add(mntmNewMenuItem_1_1);
@@ -157,7 +164,25 @@ public class IndexFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    //学生管理----添加学生
+    //学生管理----学生列表
+    protected void studentList() {
+		// TODO Auto-generated method stub
+		if(studentListFrame == null) {
+			studentListFrame = new StudentListFrame();
+			desktopPane.add(studentListFrame);
+		}
+		studentListFrame.setVisible(true);
+		//保持窗体最前
+		try {
+			studentListFrame.setSelected(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+	}
+
+	//学生管理----添加学生
     protected void addStudentInfo() {
 		// TODO Auto-generated method stub
 		if(addStudentFrame == null) {
@@ -211,6 +236,13 @@ public class IndexFrame extends JFrame {
             desktopPane.add(addClassFrame);
         }
         addClassFrame.setVisible(true);
+      //保持窗体最前
+        try {
+        	addClassFrame.setSelected(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     //系统管理员----修改密码
@@ -221,5 +253,12 @@ public class IndexFrame extends JFrame {
             desktopPane.add(resetPassword);
         }
         resetPassword.setVisible(true);
+      //保持窗体最前
+        try {
+        	resetPassword.setSelected(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

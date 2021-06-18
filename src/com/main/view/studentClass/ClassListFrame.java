@@ -47,7 +47,7 @@ public class ClassListFrame extends JInternalFrame {
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 10, 864, 425);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());//给每行加线条
         getContentPane().add(scrollPane);
         getContentPane().setLayout(null);
         setClosable(true);

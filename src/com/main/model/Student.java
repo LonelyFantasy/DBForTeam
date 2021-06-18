@@ -16,6 +16,10 @@ public class Student {
 	private String major;
 	private String secondary;
 	
+	public Student() {
+		
+	}
+	
 	//构造方法
 	public Student(String id, String name, int age, String grade, String classId, String className, String sex,
 			String major, String secondary) {
