@@ -252,10 +252,18 @@ public class StudentListFrame extends JInternalFrame {
 		getContentPane().add(btnNewButton_2);
 		
 		deleteButton = new JButton("删除");
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				deleteButton(ae);
+			}
+		});
 		deleteButton.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/ashbin-fill.png")));
 		deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		deleteButton.setBounds(809, 624, 93, 25);
 		getContentPane().add(deleteButton);
+
+
 		
 		maleRadioBtn = new JRadioButton("男");
 		maleRadioBtn.setFont(new Font("微软雅黑", Font.PLAIN, 15));
@@ -278,7 +286,12 @@ public class StudentListFrame extends JInternalFrame {
 		dtm = (DefaultTableModel)this.studentList.getModel();
 		quaryAllStudent();
 	}
-	
+
+	//删除按钮的点击动作-- 删除学生信息
+	protected void deleteButton(ActionEvent ae) {
+
+	}
+
 	//搜索按钮
 	protected void queryButton() {
 		// TODO Auto-generated method stub

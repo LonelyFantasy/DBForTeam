@@ -19,6 +19,7 @@ import com.main.model.StudentClass;
 import com.main.util.CollegeStructure;
 import com.main.util.LimitedDocument;
 import com.main.util.StringUtil;
+import com.main.view.IndexFrame;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -275,6 +276,10 @@ public class AddStudentFrame extends JInternalFrame {
 		String  secondaryString = this.studentSecondaryComb.getSelectedItem().toString();
 		Student tempStudent = new Student(idString, nameString, ages, gradeString, classIdString, classNameString, sexString, majorString, secondaryString);
 		JOptionPane.showMessageDialog(this, new StudentDao().addStudentInfo(tempStudent));
+		if(IndexFrame.studentListFrame!=null)//刷新学生信息列表操作，只要增加就刷新
+		{
+			IndexFrame.studentListFrame.quaryAllStudent();
+		}
 	}
 
 	//点击ComBoBox后更新班级选择事件
