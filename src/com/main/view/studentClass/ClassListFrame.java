@@ -30,7 +30,7 @@ public class ClassListFrame extends JInternalFrame {
     private JTextArea classInfo;
     private JButton editButton;
     private JButton deleteButton;
-
+    private JLabel  class_label_count;//班级数量的显示
     private DefaultTableModel dtm = null;
 
 
@@ -216,6 +216,11 @@ public class ClassListFrame extends JInternalFrame {
         classInfo.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         classInfo.setBounds(111, 551, 389, 109);
         getContentPane().add(classInfo);
+        
+        class_label_count = new JLabel();//这是班级数量的显示
+        class_label_count.setText(label_string());
+        class_label_count.setBounds(555, 606, 117, 30);
+        getContentPane().add(class_label_count);
 
         this.dtm = (DefaultTableModel) classListTable.getModel();
 
@@ -230,7 +235,9 @@ public class ClassListFrame extends JInternalFrame {
 			ClassDao classDao = new ClassDao();
 			JOptionPane.showMessageDialog(this, classDao.deleteClass(idString));
 		}
+		class_label_count.setText(label_string());
 		queryAllClass();//删除完后刷新表格
+	    
 	}
 
 	//点击表格事件设置
@@ -303,7 +310,7 @@ public class ClassListFrame extends JInternalFrame {
     }
 
     //获取整表内容
-    public void queryAllClass() {
+    public List<StudentClass> queryAllClass() {
         dtm.setRowCount(0);
         ClassDao classDao = new ClassDao();
         List<StudentClass> allClassList = classDao.queryAllClass();
@@ -321,12 +328,25 @@ public class ClassListFrame extends JInternalFrame {
         //按钮默认设置不可点击
         this.editButton.setEnabled(false);
         this.deleteButton.setEnabled(false);
-        
+        return allClassList;
     }
 
     //重写这个窗体的关闭按键方法，防止窗口重复出现
     public void doDefaultCloseAction() {
         setVisible(false);
         resetButton();
+    }
+    public int class_count()//计算班级数量的函数
+    {
+    	ClassDao classdao=new ClassDao();
+    	List<StudentClass> class_count=classdao.queryAllClass();
+    	
+    	return class_count.size();
+    }
+    public String label_string()//显示班级数量的文字提示
+    {
+    	int a=class_count();
+    	String str="班级数量："+a;
+    	return str;
     }
 }

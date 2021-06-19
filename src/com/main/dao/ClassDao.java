@@ -63,7 +63,7 @@ public class ClassDao extends BasicDao{
     }
 
     //获取s_class表信息
-    public ArrayList <StudentClass> queryAllClass() {
+    public  ArrayList <StudentClass> queryAllClass() {
         ArrayList <StudentClass> array = new ArrayList<StudentClass>();
         String sqlString = "SELECT * FROM s_class";
         try {
