@@ -1,6 +1,18 @@
 package com.main.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import com.main.model.SystemAdmin;
+import com.main.model.Teacher;
 import com.main.model.UserType;
 import com.main.view.student.AddStudentFrame;
 import com.main.view.student.StudentListFrame;
@@ -8,21 +20,23 @@ import com.main.view.studentClass.AddClassFrame;
 import com.main.view.studentClass.ClassListFrame;
 import com.main.view.systemManage.ResetPassword;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 
 /**
- * @author Lonely_Fantasy
- * @version 创建时间：2021年6月10日 下午3:20:40
- * 类说明
- */
-public class IndexFrame extends JFrame {
-
-    private JPanel contentPane;
+* @author Lonely_Fantasy 
+* @version 创建时间：2021年6月19日 下午12:56:55
+* 类说明
+*/
+public class IndexFrameForTeacher extends JFrame {
+	
+	private JPanel contentPane;
     public static JDesktopPane desktopPane;
 
     public static ResetPassword resetPassword = null;
@@ -30,18 +44,19 @@ public class IndexFrame extends JFrame {
     public static AddClassFrame addClassFrame = null;
     public static AddStudentFrame addStudentFrame = null;
     public static StudentListFrame studentListFrame = null;
-
-
-    public static UserType userType;//接受登录数据
-    public static SystemAdmin admin;//接受登录数据
+	
+	
+	public static UserType userType;//接受登录数据
+    public static Teacher teacher;//接受登录数据
     public static String adminPassword;//接受登录数据
 
-    /**
-     * Create the frame.
-     */
-    public IndexFrame(UserType u, SystemAdmin a, String p) {
-        userType = u;
-        admin = a;
+
+	/**
+	 * Create the frame.
+	 */
+	public IndexFrameForTeacher(UserType u, Teacher t, String p) {
+		userType = u;
+        teacher = t;
         adminPassword = p;
         setIconImage(Toolkit.getDefaultToolkit().getImage(IndexFrame.class.getResource("/images/main_icon.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,20 +72,9 @@ public class IndexFrame extends JFrame {
         mnNewMenu.setFont(new Font("微软雅黑", Font.BOLD, 15));
         menuBar.add(mnNewMenu);
 
-        JMenuItem mntmNewMenuItem = new JMenuItem("\u6DFB\u52A0\u73ED\u7EA7");
-        mntmNewMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                addStudentClass();
-            }
-        });
-        mntmNewMenuItem.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/add-circle.png")));
-        mntmNewMenuItem.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
-        mnNewMenu.add(mntmNewMenuItem);
-
-        JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u73ED\u7EA7\u5217\u8868");
+        JMenuItem mntmNewMenuItem_1 = new JMenuItem("班级信息");
         mntmNewMenuItem_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                studentClassList();
             }
         });
         mntmNewMenuItem_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
@@ -82,20 +86,9 @@ public class IndexFrame extends JFrame {
         mnNewMenu_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
         menuBar.add(mnNewMenu_1);
 
-        JMenuItem mntmNewMenuItem_2 = new JMenuItem("添加学生");
-        mntmNewMenuItem_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		addStudentInfo();
-        	}
-        });
-        mntmNewMenuItem_2.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/add-circle.png")));
-        mntmNewMenuItem_2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
-        mnNewMenu_1.add(mntmNewMenuItem_2);
-
         JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("学生列表");
         mntmNewMenuItem_1_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		studentList();
         	}
         });
         mntmNewMenuItem_1_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
@@ -110,7 +103,7 @@ public class IndexFrame extends JFrame {
         JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u8D26\u6237\u4FE1\u606F");
         mntmNewMenuItem_8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                myAccount();
+            	myAccount();
             }
         });
         mntmNewMenuItem_8.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/browse.png")));
@@ -120,7 +113,6 @@ public class IndexFrame extends JFrame {
         JMenuItem mntmNewMenuItem_9 = new JMenuItem("\u4FEE\u6539\u5BC6\u7801");
         mntmNewMenuItem_9.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                resetPassword();
             }
         });
         mntmNewMenuItem_9.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/lock.png")));
@@ -162,42 +154,13 @@ public class IndexFrame extends JFrame {
         contentPane.add(desktopPane, BorderLayout.CENTER);
         //窗口居中
         setLocationRelativeTo(null);
+	}
+
+    //我的账户----账户信息
+    protected void myAccount() {
+        // TODO Auto-generated method stub
+        JOptionPane.showMessageDialog(this, "账户名称：" + teacher.getName() + "\n账户类别：" + userType + "\n管理班级：", "账户信息", JOptionPane.INFORMATION_MESSAGE);
     }
-
-    //学生管理----学生列表
-    protected void studentList() {
-		// TODO Auto-generated method stub
-		if(studentListFrame == null) {
-			studentListFrame = new StudentListFrame();
-			desktopPane.add(studentListFrame);
-		}
-		studentListFrame.setVisible(true);
-		//保持窗体最前
-		try {
-			studentListFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-	}
-
-	//学生管理----添加学生
-    protected static void addStudentInfo() {
-		// TODO Auto-generated method stub
-		if(addStudentFrame == null) {
-			addStudentFrame = new AddStudentFrame();
-			desktopPane.add(addStudentFrame);
-		}
-		addStudentFrame.setVisible(true);
-		//保持窗体最前
-		try {
-			addStudentFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	//更多----关于软件
     protected void aboutSoftware() {
@@ -205,71 +168,4 @@ public class IndexFrame extends JFrame {
         JOptionPane.showMessageDialog(null, "使用Java Swing开发\n数据库使用MySQL", "关于软件", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    //我的账户----账户信息
-    protected void myAccount() {
-        // TODO Auto-generated method stub
-        JOptionPane.showMessageDialog(this, "账户名称：" + admin.getName() + "\n账户类别：" + userType, "账户信息", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    //班级管理----班级列表
-    protected void studentClassList() {
-        // TODO Auto-generated method stub
-        if (classListFrame == null) {
-            classListFrame = new ClassListFrame();
-            desktopPane.add(classListFrame);
-        }
-        classListFrame.setVisible(true);
-        //保持窗体最前
-        try {
-			classListFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
-    //班级管理----添加班级
-    protected void addStudentClass() {
-        // TODO Auto-generated method stub
-        if (addClassFrame == null) {
-            addClassFrame = new AddClassFrame();
-            desktopPane.add(addClassFrame);
-        }
-        addClassFrame.setVisible(true);
-      //保持窗体最前
-        try {
-        	addClassFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
-    //系统管理员----修改密码
-    protected void resetPassword() {
-        // TODO Auto-generated method stub
-        if (resetPassword == null) {
-            resetPassword = new ResetPassword();
-            desktopPane.add(resetPassword);
-        }
-        resetPassword.setVisible(true);
-      //保持窗体最前
-        try {
-        	resetPassword.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
-	
-    //desktopPane的get方法
-    public JDesktopPane getDesktopPane() {
-		return desktopPane;
-	}
-
-
-
-    
 }
-

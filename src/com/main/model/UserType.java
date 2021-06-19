@@ -8,8 +8,7 @@ package com.main.model;
 public enum UserType {
 
     ADMIN("系统管理员", 0),
-    STUDENT("学生", 1),
-    TEACHER("老师", 2);
+    TEACHER("老师", 1);
 
     private String name;
     private int index;

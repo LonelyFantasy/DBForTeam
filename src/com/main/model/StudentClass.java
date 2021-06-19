@@ -86,6 +86,18 @@ public class StudentClass {
     public void setInfo(String info) {
         this.info = info;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	// TODO Auto-generated method stub
+    	if(obj instanceof StudentClass) {
+    		StudentClass studentClass = (StudentClass)obj;
+    		if(studentClass.getName().equals(name) && studentClass.getId().equals(id)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     //重写toString方法，返回班级名字
     public String toString() {

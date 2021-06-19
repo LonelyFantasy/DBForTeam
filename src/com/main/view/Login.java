@@ -1,7 +1,9 @@
 package com.main.view;
 
 import com.main.dao.AdminDao;
+import com.main.dao.TeacherDao;
 import com.main.model.SystemAdmin;
+import com.main.model.Teacher;
 import com.main.model.UserType;
 
 import javax.swing.*;
@@ -88,7 +90,7 @@ public class Login extends JFrame {
         user_type_combobox = new JComboBox();
         user_type_combobox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
         user_type_combobox.setBounds(203, 154, 110, 28);
-        user_type_combobox.setModel(new DefaultComboBoxModel(new UserType[]{UserType.ADMIN, UserType.STUDENT, UserType.TEACHER}));
+        user_type_combobox.setModel(new DefaultComboBoxModel(new UserType[]{UserType.ADMIN, UserType.TEACHER}));
         contentPane.add(user_type_combobox);
 
         JButton btnLogin = new JButton("\u767B\u5F55");
@@ -126,29 +128,33 @@ public class Login extends JFrame {
 
     protected void confirmLogin(ActionEvent ae) {
         // TODO Auto-generated method stub
-        String name = this.adminName.getText();
-        String password = this.adminPassword.getText();
+        String nameString1 = this.adminName.getText();
+        String passwordString1 = this.adminPassword.getText();
+        String nameString2 = this.adminName.getText();
+        String passwordString2 = this.adminPassword.getText();
         UserType userType = (UserType) this.user_type_combobox.getSelectedItem();
         if ("系统管理员".equals(userType.getName())) {
             AdminDao adminDao = new AdminDao();
-            SystemAdmin admin = adminDao.selectAdmin(name, password);
+            SystemAdmin admin = adminDao.selectAdmin(nameString1, passwordString1);
             if (admin == null) {
                 JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
                 return;
             }
-            IndexFrame indexFrame = new IndexFrame(userType, admin, password);
+            IndexFrame indexFrame = new IndexFrame(userType, admin, passwordString1);
             indexFrame.setVisible(true);
             this.dispose();
         }
-
-        if ("学生".equals(userType.getName())) {
-
+        if ("老师".equals(userType.getName())) {
+        	TeacherDao teacherDao = new TeacherDao();
+            Teacher teacher = teacherDao.selectTeacher(nameString2, passwordString2);
+            if (teacher == null) {
+                JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
+                return;
+            }
+            IndexFrameForTeacher indexFrameForTeacher = new IndexFrameForTeacher(userType, teacher, passwordString2);
+            indexFrameForTeacher.setVisible(true);
+            this.dispose();
             return;
         }
-        if ("教师".equals(userType.getName())) {
-            return;
-        }
-
     }
-
 }

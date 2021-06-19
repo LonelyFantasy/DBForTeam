@@ -17,6 +17,7 @@ import com.main.model.Student;
 import com.main.model.StudentClass;
 import com.main.util.LimitedDocument;
 import com.main.util.StringUtil;
+import com.main.view.IndexFrame;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,6 +31,9 @@ import java.util.List;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
 
 /**
 * @author Lonely_Fantasy 
@@ -73,6 +77,12 @@ public class StudentListFrame extends JInternalFrame {
 		getContentPane().add(scrollPane);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());//给每行加线条
 		studentList = new JTable();
+		studentList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectRow();
+			}
+		});
 		
 		
 		studentList.setFont(new Font("微软雅黑", Font.BOLD, 14));
@@ -224,6 +234,11 @@ public class StudentListFrame extends JInternalFrame {
 		getContentPane().add(studentIdText);
 		
 		editButton = new JButton("编辑");
+		editButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editStudentInfo();
+			}
+		});
 		editButton.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/editor.png")));
 		editButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		editButton.setBounds(549, 624, 93, 25);
@@ -252,6 +267,11 @@ public class StudentListFrame extends JInternalFrame {
 		getContentPane().add(btnNewButton_2);
 		
 		deleteButton = new JButton("删除");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteButton();
+			}
+		});
 		deleteButton.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/ashbin-fill.png")));
 		deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		deleteButton.setBounds(809, 624, 93, 25);
@@ -276,9 +296,73 @@ public class StudentListFrame extends JInternalFrame {
 		deleteButton.setFocusable(false);
 		
 		dtm = (DefaultTableModel)this.studentList.getModel();
-		quaryAllStudent();
+		queryAllStudent();
 	}
 	
+	//编辑学生信息按钮事件
+	protected void editStudentInfo() {
+		// TODO Auto-generated method stub
+		
+		//获取选择带学生的信息
+		Student tempStudent = new Student();
+		tempStudent.setId(dtm.getValueAt(studentList.getSelectedRow(), 0).toString());
+		tempStudent.setGrade(dtm.getValueAt(studentList.getSelectedRow(), 1).toString());
+		tempStudent.setName(dtm.getValueAt(studentList.getSelectedRow(), 2).toString());
+		String sexString = "";if("男".equals(dtm.getValueAt(studentList.getSelectedRow(), 3).toString())) {sexString = "男";}else{sexString = "女";}
+		tempStudent.setSex(sexString);
+		int ages = Integer.parseInt(dtm.getValueAt(studentList.getSelectedRow(), 4).toString());//年龄转换Int类型
+		tempStudent.setAge(ages);
+		tempStudent.setClassName(dtm.getValueAt(studentList.getSelectedRow(), 5).toString());
+		tempStudent.setSecondary(dtm.getValueAt(studentList.getSelectedRow(), 6).toString());
+		tempStudent.setMajor(dtm.getValueAt(studentList.getSelectedRow(), 7).toString());
+//		new StudentDao().querySomeStudent(tempStudent); 
+		tempStudent.setClassId(new StudentDao().queryStudentClassId(tempStudent.getId()));//将查询到的id传入到tempStudent
+		if(IndexFrame.addStudentFrame == null) {
+			IndexFrame.addStudentFrame = new AddStudentFrame();
+			IndexFrame.desktopPane.add(IndexFrame.addStudentFrame);
+		}
+		IndexFrame.addStudentFrame.editStudentInfo(tempStudent);
+		IndexFrame.addStudentFrame.setVisible(true);
+		//保持窗体最前
+		try {
+			IndexFrame.addStudentFrame.setSelected(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
+
+	//删除学生信息按钮事件
+	protected void deleteButton() {
+		// TODO Auto-generated method stub
+		String idString = dtm.getValueAt(studentList.getSelectedRow(), 0).toString();//获取选中学生的id
+		JOptionPane.showMessageDialog(this, new StudentDao().deleteStudent(idString));//调用StudentDao层中删除学生的方法
+		queryAllStudent();//删除与否都刷新全表
+	}
+
+	//点击表格获取当前行数的学生信息
+	protected void selectRow() {
+		// TODO Auto-generated method stub
+		studentIdText.setText(dtm.getValueAt(studentList.getSelectedRow(), 0).toString());
+    	studentNameText.setText(dtm.getValueAt(studentList.getSelectedRow(), 2).toString());
+		studentAgeText.setText(dtm.getValueAt(studentList.getSelectedRow(), 4).toString());
+		studentGradeText.setText(dtm.getValueAt(studentList.getSelectedRow(), 1).toString());
+		studentSecondaryText.setText(dtm.getValueAt(studentList.getSelectedRow(), 6).toString());
+		studentMajorText.setText(dtm.getValueAt(studentList.getSelectedRow(), 7).toString());
+		studentClassNameText.setText(dtm.getValueAt(studentList.getSelectedRow(), 5).toString());
+		if("男".equals(dtm.getValueAt(studentList.getSelectedRow(), 3).toString())) {
+			this.maleRadioBtn.setSelected(true);
+			this.femaleRadioBtn.setSelected(false);
+		}else {
+			this.maleRadioBtn.setSelected(false);
+			this.femaleRadioBtn.setSelected(true);
+		}
+		//设置编辑删除按钮可点击
+		this.editButton.setEnabled(true);
+		this.deleteButton.setEnabled(true);
+	}
+
 	//搜索按钮
 	protected void queryButton() {
 		// TODO Auto-generated method stub
@@ -309,11 +393,6 @@ public class StudentListFrame extends JInternalFrame {
 			sexString = "";
 		}
 		tempStudent.setSex(sexString);
-		
-		
-		//没有内容选中，则做全局搜索
-		
-		
 		new StudentDao().querySomeStudent(tempStudent); 
 		ArrayList<Student> attArrayList = new StudentDao().querySomeStudent(tempStudent);
 		
@@ -337,7 +416,7 @@ public class StudentListFrame extends JInternalFrame {
 	}
 
 	//获取整表内容
-	public void quaryAllStudent() {
+	public void queryAllStudent() {
 		dtm.setRowCount(0);
 		
         List<Student> allStudentList = new StudentDao().quaryAllstudent();
@@ -369,6 +448,9 @@ public class StudentListFrame extends JInternalFrame {
 		studentSecondaryText.setText("");
 		studentMajorText.setText("");
 		studentClassNameText.setText("");
+		this.maleRadioBtn.setSelected(false);
+		this.femaleRadioBtn.setSelected(false);
+		
 	}
 
 	//重写这个窗体的关闭按键方法，防止窗口重复出现

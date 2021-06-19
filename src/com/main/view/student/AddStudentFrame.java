@@ -19,6 +19,7 @@ import com.main.model.StudentClass;
 import com.main.util.CollegeStructure;
 import com.main.util.LimitedDocument;
 import com.main.util.StringUtil;
+import com.main.view.IndexFrame;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -44,6 +45,8 @@ public class AddStudentFrame extends JInternalFrame {
 	private JComboBox studentSecondaryComb;
 	private JComboBox studentClassComb;
 	private JComboBox studentMajorComb;
+	private Student tempStudent = null;//设置对象为空来判断当前是否正处于学生编辑还是新增学生
+	
 	private ArrayList<StudentClass> arrayClass = null;
 
 	
@@ -216,7 +219,11 @@ public class AddStudentFrame extends JInternalFrame {
 		JButton btnNewButton_1 = new JButton("重置");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				resetButton();
+				if(AddStudentFrame.this.tempStudent == null) {
+					resetButton();
+				}else {
+					editStudentInfo(AddStudentFrame.this.tempStudent);
+				}
 			}
 		});
 		btnNewButton_1.setIcon(new ImageIcon(AddStudentFrame.class.getResource("/images/exit.png")));
@@ -228,34 +235,33 @@ public class AddStudentFrame extends JInternalFrame {
 		btnNewButton.setFocusable(false);
 		btnNewButton_1.setFocusable(false);
 		
-		
+		//刷新添加学生页面
+		if(IndexFrame.studentListFrame != null) {
+			IndexFrame.studentListFrame.queryAllStudent();
+		}
 	}
 	
 	//提交添加学生信息按钮
 	protected void confirmButton() {
 		// TODO Auto-generated method stub
-		String classIdString = this.studentClassId.getText();
-		
-		String nameString = this.studentName.getText();
+		String classIdString = this.studentClassId.getText();//班级id
+		String nameString = this.studentName.getText();//学生姓名
 		//判断姓名框是否为空
 		if(StringUtil.isEmpty(nameString)) {
 			JOptionPane.showMessageDialog(this, "学生姓名不能为空！");
 			return;
 		}
-		
 		//判断年龄是否为空
 		if(StringUtil.isEmpty(studentAge.getText())) {
 			JOptionPane.showMessageDialog(this, "学生年龄不能为空！");
 			return;
 		}
 		int ages = Integer.parseInt(studentAge.getText());//年龄转换Int类型
-		
 		//判断当前班级是否已经选择
 		if(!classIdString.matches("[0-9]*")){
 			JOptionPane.showMessageDialog(this, "班级未选择，请重新选择班级！");
 			return;
 		}
-		
 		//此处防止在添加过程中如果选择的班级突然被删除的情况
 		if(new ClassDao().querySomeClass(classIdString) == false) {//查询班级的新方法
 			JOptionPane.showMessageDialog(this, "查无此班级，请重新选择班级！");
@@ -263,20 +269,50 @@ public class AddStudentFrame extends JInternalFrame {
 			return;
 		}
 		
-		String classNameString = this.studentClassComb.getSelectedItem().toString();//获取班级名字
-		String idString = classIdString;//获取班级id
-		String gradeString = this.studentGradeComb.getSelectedItem().toString();//获取年级
-
+		String classNameString = this.studentClassComb.getSelectedItem().toString();//班级名称
+		String idString = classIdString;//班级id
+		String gradeString = this.studentGradeComb.getSelectedItem().toString();//年级
 		String sexString = "男";
 		if(this.femaleRadioBtn.isSelected())
 			sexString = "女";
-
 		String majorString = this.studentMajorComb.getSelectedItem().toString();
-		String  secondaryString = this.studentSecondaryComb.getSelectedItem().toString();
+		String secondaryString = this.studentSecondaryComb.getSelectedItem().toString();
 		Student tempStudent = new Student(idString, nameString, ages, gradeString, classIdString, classNameString, sexString, majorString, secondaryString);
-		JOptionPane.showMessageDialog(this, new StudentDao().addStudentInfo(tempStudent));
+		if(this.tempStudent == null) {//新增学生信息
+			JOptionPane.showMessageDialog(this, new StudentDao().addStudentInfo(tempStudent));
+		}else {//编辑学生信息
+			JOptionPane.showMessageDialog(this, new StudentDao().editStudentInfo(tempStudent, this.tempStudent));//第一个为上面获取的信息，第二个为下面编辑学生传进来的信息
+		}
+		
+		//如果学生列表窗体有打开过，添加学生后自动刷新学生列表
+		if(IndexFrame.studentListFrame != null) {
+			IndexFrame.studentListFrame.queryAllStudent();
+		}
 	}
 
+	//编辑学生信息（直接使用添加学生信息的框体）
+	public void editStudentInfo(Student tempStudent) {
+		setTitle("编辑学生信息");
+		this.tempStudent = tempStudent;//编辑学生信息标志
+		this.studentName.setText(tempStudent.getName());
+		if("男".equals(tempStudent.getSex())) {
+			this.maleRadioBtn.setSelected(true);
+			this.femaleRadioBtn.setSelected(false);
+		}else {
+			this.maleRadioBtn.setSelected(false);
+			this.femaleRadioBtn.setSelected(true);
+		}
+		this.studentAge.setText(Integer.toString(tempStudent.getAge()));//类型转换
+		this.studentGradeComb.setSelectedItem(tempStudent.getGrade());
+		this.studentSecondaryComb.setSelectedItem(tempStudent.getSecondary());
+		this.studentMajorComb.setSelectedItem(tempStudent.getMajor());
+		StudentClass studentClass = new StudentClass();
+		studentClass.setId(tempStudent.getClassId());
+		studentClass.setName(tempStudent.getClassName());
+		this.studentClassComb.setSelectedIndex(this.arrayClass.indexOf(studentClass));//传入当前所选编辑学生的班级对应在combobox里面的下标
+		this.studentClassId.setText(tempStudent.getClassId());
+	}
+	
 	//点击ComBoBox后更新班级选择事件
     protected void setStduentClass() {
 		// TODO Auto-generated method stub
@@ -295,9 +331,10 @@ public class AddStudentFrame extends JInternalFrame {
 		
 	}
 
-    //重置按钮
+    //添加学生界面重置按钮
 	protected void resetButton() {
 		// TODO Auto-generated method stub
+		setTitle("添加学生");
 		studentName.setText("");
 		this.maleRadioBtn.setSelected(true);
 		studentGradeComb.setSelectedIndex(0);
@@ -314,9 +351,14 @@ public class AddStudentFrame extends JInternalFrame {
 			this.studentClassComb.setModel(new DefaultComboBoxModel(arrayClass.toArray()));
 			this.studentClassId.setText(arrayClass.get(0).getId());
 		}
-		
+		this.tempStudent = null;//重置窗口状态，以便下次判断窗口状态
 	}
 
+	//编辑学生页面重置按钮
+	protected void editFrameResetButton() {
+		
+		
+	}
 
 	//重写这个窗体的关闭按键方法，防止窗口重复出现
     public void doDefaultCloseAction() {
