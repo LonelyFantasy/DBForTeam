@@ -23,9 +23,13 @@ public class TeacherDao extends BasicDao{
 
             ResultSet executeQuery = this.pStatement.executeQuery();//查询结果集合
             if(executeQuery.next()) {
+            	System.out.println(executeQuery.getInt(1));
+            	System.out.println(executeQuery.getString(2));
+            	System.out.println(executeQuery.getString(3));
+            	 System.out.println(executeQuery.getString(4));
                 teacher = new Teacher(executeQuery.getInt(1),executeQuery.getString(2),executeQuery.getString(3), executeQuery.getString(4));
             }
-            System.out.println(teacher);
+            
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -85,13 +85,13 @@ public class Login extends JFrame {
         JLabel lblNewLabel_1_1_1 = new JLabel("\u7528\u6237\u7C7B\u578B\uFF1A");
         lblNewLabel_1_1_1.setFont(new Font("微软雅黑", Font.BOLD, 16));
         lblNewLabel_1_1_1.setBounds(110, 154, 83, 28);
-        contentPane.add(lblNewLabel_1_1_1);
+//        contentPane.add(lblNewLabel_1_1_1);
 
         user_type_combobox = new JComboBox();
         user_type_combobox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
         user_type_combobox.setBounds(203, 154, 110, 28);
-        user_type_combobox.setModel(new DefaultComboBoxModel(new UserType[]{UserType.ADMIN, UserType.TEACHER}));
-        contentPane.add(user_type_combobox);
+        user_type_combobox.setModel(new DefaultComboBoxModel(new UserType[]{UserType.ADMIN}));
+//        contentPane.add(user_type_combobox);
 
         JButton btnLogin = new JButton("\u767B\u5F55");
         btnLogin.addActionListener(new ActionListener() {
@@ -144,17 +144,17 @@ public class Login extends JFrame {
             indexFrame.setVisible(true);
             this.dispose();
         }
-        if ("老师".equals(userType.getName())) {
-        	TeacherDao teacherDao = new TeacherDao();
-            Teacher teacher = teacherDao.selectTeacher(nameString2, passwordString2);
-            if (teacher == null) {
-                JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
-                return;
-            }
-            IndexFrameForTeacher indexFrameForTeacher = new IndexFrameForTeacher(userType, teacher, passwordString2);
-            indexFrameForTeacher.setVisible(true);
-            this.dispose();
-            return;
-        }
+//        if ("老师".equals(userType.getName())) {
+//        	TeacherDao teacherDao = new TeacherDao();
+//            Teacher teacher = teacherDao.selectTeacher(nameString2, passwordString2);
+//            if (teacher == null) {
+//                JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
+//                return;
+//            }
+//            IndexFrameForTeacher indexFrameForTeacher = new IndexFrameForTeacher(userType, teacher, passwordString2);
+//            indexFrameForTeacher.setVisible(true);
+//            this.dispose();
+//            return;
+//        }
     }
 }

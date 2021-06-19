@@ -49,15 +49,17 @@ public class IndexFrameForTeacher extends JFrame {
 	public static UserType userType;//接受登录数据
     public static Teacher teacher;//接受登录数据
     public static String adminPassword;//接受登录数据
-
+    public static String classid;//接受登录数据
+    
 
 	/**
 	 * Create the frame.
 	 */
-	public IndexFrameForTeacher(UserType u, Teacher t, String p) {
+	public IndexFrameForTeacher(UserType u, Teacher t, String p, String c) {
 		userType = u;
         teacher = t;
         adminPassword = p;
+        classid = c;
         setIconImage(Toolkit.getDefaultToolkit().getImage(IndexFrame.class.getResource("/images/main_icon.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 950);
@@ -89,6 +91,7 @@ public class IndexFrameForTeacher extends JFrame {
         JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("学生列表");
         mntmNewMenuItem_1_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		studentList();
         	}
         });
         mntmNewMenuItem_1_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
@@ -156,7 +159,12 @@ public class IndexFrameForTeacher extends JFrame {
         setLocationRelativeTo(null);
 	}
 
-    //我的账户----账户信息
+    protected void studentList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	//我的账户----账户信息
     protected void myAccount() {
         // TODO Auto-generated method stub
         JOptionPane.showMessageDialog(this, "账户名称：" + teacher.getName() + "\n账户类别：" + userType + "\n管理班级：", "账户信息", JOptionPane.INFORMATION_MESSAGE);

@@ -60,7 +60,7 @@ public enum CollegeStructure {
     };
 
     public static final String [] gradeString = {//年级
-            "2017","2018","2019","2020"
+            "2018","2019","2020"
     };
 
     public String getName() {
