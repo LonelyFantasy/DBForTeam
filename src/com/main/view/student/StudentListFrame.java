@@ -56,7 +56,7 @@ public class StudentListFrame extends JInternalFrame {
 	private JButton deleteButton;
 	private JRadioButton maleRadioBtn;
 	private JRadioButton femaleRadioBtn;
-	
+	public JLabel count_label;//数量的标签设定
 	private DefaultTableModel dtm = null;
 
 
@@ -296,6 +296,11 @@ public class StudentListFrame extends JInternalFrame {
 		maleRadioBtn.setFocusable(false);
 		deleteButton.setFocusable(false);
 		
+		 count_label = new JLabel("");
+		count_label.setBounds(226, 611, 75, 38);
+	    count_label.setText(label_string());
+		getContentPane().add(count_label);
+		
 		dtm = (DefaultTableModel)this.studentList.getModel();
 		queryAllStudent();
 	}
@@ -339,6 +344,7 @@ public class StudentListFrame extends JInternalFrame {
 		// TODO Auto-generated method stub
 		String idString = dtm.getValueAt(studentList.getSelectedRow(), 0).toString();//获取选中学生的id
 		JOptionPane.showMessageDialog(this, new StudentDao().deleteStudent(idString));//调用StudentDao层中删除学生的方法
+		count_label.setText(label_string());
 		queryAllStudent();//删除与否都刷新全表
 	}
 
@@ -459,5 +465,18 @@ public class StudentListFrame extends JInternalFrame {
         setVisible(false);
         resetButton();
     }
-	
+
+	public int student_count()//计算班级数量的函数
+	{
+		StudentDao studentDao =new StudentDao();
+		ArrayList<Student> student_count=studentDao.quaryAllstudent();
+
+		return student_count.size();
+	}
+	public String label_string()
+	{
+		int a=student_count();
+		String str="学生数量："+a;
+		return str;
+	}
 }

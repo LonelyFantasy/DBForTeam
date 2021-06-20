@@ -171,6 +171,7 @@ public class AddClassFrame extends JInternalFrame {
         	IndexFrame.classListFrame.queryAllClass();
         	IndexFrame.classListFrame.class_label_count.setText(IndexFrame.classListFrame.label_string());//添加班级后重新刷新表格并自动统计班级数量
         }
+        IndexFrame.classListFrame.class_label_count.setText(IndexFrame.classListFrame.label_string());
     }
 
     //重置内容按钮

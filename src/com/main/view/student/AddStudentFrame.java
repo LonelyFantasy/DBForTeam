@@ -273,6 +273,7 @@ public class AddStudentFrame extends JInternalFrame {
 		if(IndexFrame.studentListFrame != null) {
 			IndexFrame.studentListFrame.queryAllStudent();
 		}
+		IndexFrame.studentListFrame.count_label.setText(IndexFrame.studentListFrame.label_string());
 	}
 
 	//编辑学生信息（直接使用添加学生信息的框体）

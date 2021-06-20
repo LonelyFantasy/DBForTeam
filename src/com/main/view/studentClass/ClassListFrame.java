@@ -29,7 +29,7 @@ public class ClassListFrame extends JInternalFrame {
     private JTextArea classInfo;
     private JButton editButton;
     private JButton deleteButton;
-    JLabel  class_label_count;//班级数量的显示
+    public JLabel  class_label_count;//班级数量的显示
     private DefaultTableModel dtm = null;
 
 

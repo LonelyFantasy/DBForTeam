@@ -18,7 +18,7 @@ public class ClassDao extends BasicDao{
         String resultString = "添加失败";
         String sqlStr1 = "SELECT COUNT(*) FROM s_class WHERE id LIKE '"+tempClass.getId() + "%'";
         String sqlStr2 = "SELECT * FROM s_class WHERE id = ?";
-        String sqlStr3 = "INSERT INTO s_class VALUES(?,?,?,?,?,?)";
+        String sqlStr3 = "INSERT INTO s_class VALUES(?,?,?,?,?,?,0)";
         try {
             System.out.println(tempClass.getId());
             this.pStatement = this.con.prepareStatement(sqlStr1);
