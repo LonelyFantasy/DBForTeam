@@ -12,7 +12,7 @@ public class StudentClass {
     private String secondary;
     private String major;
     private String info;
-
+    private int studentnumber;
     public StudentClass() {
 
     }
@@ -103,6 +103,14 @@ public class StudentClass {
     public String toString() {
     	return name;
     }
+
+	public int getStudentnumber() {
+		return studentnumber;
+	}
+
+	public void setStudentnumber(int studentnumber) {
+		this.studentnumber = studentnumber;
+	}
 
 
 }

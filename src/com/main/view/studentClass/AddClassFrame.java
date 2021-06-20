@@ -152,24 +152,24 @@ public class AddClassFrame extends JInternalFrame {
         String info = this.classInfoText.getText();
 
         //判断输入框是否填写内容
-        if(classNameText.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "班级姓名未输入！","警告",JOptionPane.WARNING_MESSAGE);
+        if (classNameText.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "班级姓名未输入！", "警告", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if(classInfoText.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "班级信息未输入！","警告",JOptionPane.WARNING_MESSAGE);
+        if (classInfoText.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "班级信息未输入！", "警告", JOptionPane.WARNING_MESSAGE);
             return;
         }
         //班级编号生成
-        String id =String.valueOf(Integer.parseInt(grade)%2000) + "00" + CollegeStructure.majorId[classSecondaryComb.getSelectedIndex()][classMajorComb.getSelectedIndex()];
+        String id = String.valueOf(Integer.parseInt(grade) % 2000) + "00" + CollegeStructure.majorId[classSecondaryComb.getSelectedIndex()][classMajorComb.getSelectedIndex()];
         StudentClass tempClass = new StudentClass(id, grade, name, secondary, major, info);
 
         ClassDao classDao = new ClassDao();
         JOptionPane.showMessageDialog(this, classDao.addClass(tempClass));
-        
-        if(IndexFrame.classListFrame != null) {
-        	IndexFrame.classListFrame.queryAllClass();
-        	IndexFrame.classListFrame.class_label_count.setText(IndexFrame.classListFrame.label_string());//添加班级后重新刷新表格并自动统计班级数量
+
+        if (IndexFrame.classListFrame != null) {
+            IndexFrame.classListFrame.queryAllClass();
+            IndexFrame.classListFrame.class_label_count.setText(IndexFrame.classListFrame.label_string());//添加班级后重新刷新表格并自动统计班级数量
         }
         IndexFrame.classListFrame.class_label_count.setText(IndexFrame.classListFrame.label_string());
     }
@@ -178,7 +178,8 @@ public class AddClassFrame extends JInternalFrame {
     protected void resetButton() {
         // TODO Auto-generated method stub
         this.classInfoText.setText("");
-        this.classGradeComb.setSelectedIndex(0);;
+        this.classGradeComb.setSelectedIndex(0);
+        ;
         this.classSecondaryComb.setSelectedIndex(0);
         this.classMajorComb.setModel(new DefaultComboBoxModel(CollegeStructure.major[0]));
         this.classInfoText.setText("这个班级很懒，什么信息都没留下。");

@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 public class EditClassFrame extends JInternalFrame {
     private JTextField classNameText;
     private JTextArea classInfoText;
-    public EditClassFrame(StudentClass studentClass)
-    {
+
+    public EditClassFrame(StudentClass studentClass) {
         setFrameIcon(new ImageIcon(AddClassFrame.class.getResource("/images/add-circle.png")));
         setIconifiable(true);//最小化
         setTitle("编辑班级");
@@ -53,7 +53,7 @@ public class EditClassFrame extends JInternalFrame {
         JButton btnNewButton = new JButton("编辑");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                         editbutton(studentClass);
+                editbutton(studentClass);
             }
         });
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
@@ -65,7 +65,7 @@ public class EditClassFrame extends JInternalFrame {
         JButton btnNewButton_1 = new JButton("重置");
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                resetButton();
+                resetButton(studentClass);
             }
         });
         btnNewButton_1.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/exit.png")));
@@ -74,31 +74,30 @@ public class EditClassFrame extends JInternalFrame {
         btnNewButton_1.setFocusPainted(false);//取消按钮虚线
         getContentPane().add(btnNewButton_1);
     }
-     protected  void  editbutton(StudentClass studentClass)
-     {
-         if(classNameText.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this,"班级名称不能为空");
-             return;
-         }
-         if(classInfoText.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this,"班级名称不能为空");
-             return;
-         }
-          studentClass.setName(classNameText.getText());
-             studentClass.setInfo(classInfoText.getText());
-             JOptionPane.showMessageDialog(this, new ClassDao().editclassinfo(studentClass));
 
-     }
+    protected void editbutton(StudentClass studentClass) {
+        if (classNameText.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "班级名称不能为空");
+            return;
+        }
+        if (classInfoText.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "班级名称不能为空");
+            return;
+        }
+        studentClass.setName(classNameText.getText());
+        studentClass.setInfo(classInfoText.getText());
+        JOptionPane.showMessageDialog(this, new ClassDao().editclassinfo(studentClass));
 
-     protected void resetButton(){
-         classInfoText.setText("");
-         classNameText.setText("");
-     }
+    }
+
+    protected void resetButton(StudentClass studentClass) {
+        classInfoText.setText(studentClass.getInfo());
+        classNameText.setText(studentClass.getName());
+    }
 
     //重写这个窗体的关闭按键方法，防止窗口重复出现
     public void doDefaultCloseAction() {
         setVisible(false);
-        IndexFrame.editClassFrame=null;
-
+        IndexFrame.editClassFrame = null;
     }
 }

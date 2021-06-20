@@ -2,6 +2,7 @@ package com.main.view.studentClass;
 
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
+import com.main.util.LimitedDocument;
 import com.main.util.StringUtil;
 import com.main.view.IndexFrame;
 import com.main.view.student.AddStudentFrame;
@@ -75,32 +76,35 @@ public class ClassListFrame extends JInternalFrame {
         classListTable.setDefaultRenderer(Object.class, renderer);
 
         classListTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                },
-                new String[]{
-                        "\u73ED\u7EA7\u7F16\u53F7", "\u73ED\u7EA7\u540D\u79F0", "\u6240\u5C5E\u5E74\u7EA7", "\u6240\u5C5E\u5B66\u9662", "\u6240\u5C5E\u4E13\u4E1A", "\u73ED\u7EA7\u4FE1\u606F"
-                }
-        ) {
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"\u73ED\u7EA7\u7F16\u53F7", "\u73ED\u7EA7\u540D\u79F0", "\u6240\u5C5E\u5E74\u7EA7", "\u6240\u5C5E\u5B66\u9662", "\u6240\u5C5E\u4E13\u4E1A", "\u73ED\u7EA7\u4FE1\u606F", "\u73ED\u7EA7\u4EBA\u6570"
+        	}
+        ){
             //设置表中内容不可编辑状态（重写方法）
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
-        classListTable.getColumnModel().getColumn(0).setPreferredWidth(120);
-        classListTable.getColumnModel().getColumn(0).setMinWidth(120);
-        classListTable.getColumnModel().getColumn(0).setMaxWidth(120);
+        classListTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+        classListTable.getColumnModel().getColumn(0).setMinWidth(80);
+        classListTable.getColumnModel().getColumn(0).setMaxWidth(80);
         classListTable.getColumnModel().getColumn(1).setPreferredWidth(100);
         classListTable.getColumnModel().getColumn(1).setMinWidth(100);
         classListTable.getColumnModel().getColumn(1).setMaxWidth(100);
-        classListTable.getColumnModel().getColumn(2).setPreferredWidth(120);
-        classListTable.getColumnModel().getColumn(2).setMinWidth(120);
-        classListTable.getColumnModel().getColumn(2).setMaxWidth(120);
+        classListTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+        classListTable.getColumnModel().getColumn(2).setMinWidth(100);
+        classListTable.getColumnModel().getColumn(2).setMaxWidth(100);
         classListTable.getColumnModel().getColumn(3).setPreferredWidth(150);
         classListTable.getColumnModel().getColumn(3).setMinWidth(150);
         classListTable.getColumnModel().getColumn(3).setMaxWidth(150);
-        classListTable.getColumnModel().getColumn(4).setPreferredWidth(150);
-        classListTable.getColumnModel().getColumn(4).setMinWidth(150);
-        classListTable.getColumnModel().getColumn(4).setMaxWidth(150);
+        classListTable.getColumnModel().getColumn(4).setPreferredWidth(130);
+        classListTable.getColumnModel().getColumn(4).setMinWidth(130);
+        classListTable.getColumnModel().getColumn(4).setMaxWidth(130);
+        classListTable.getColumnModel().getColumn(6).setPreferredWidth(80);
+        classListTable.getColumnModel().getColumn(6).setMinWidth(80);
+        classListTable.getColumnModel().getColumn(6).setMaxWidth(80);
         scrollPane.setViewportView(classListTable);
 
         JLabel lblNewLabel = new JLabel("\u73ED\u7EA7\u540D\u79F0");
@@ -144,6 +148,10 @@ public class ClassListFrame extends JInternalFrame {
         classGrade.setColumns(10);
         classGrade.setBounds(364, 445, 105, 25);
         getContentPane().add(classGrade);
+        //调用重写的工具类，设置文本框只能输入数字
+        LimitedDocument ld = new LimitedDocument(2);//参数为能输入的最大长度
+        ld.setAllowChar("0123456789");//只能输入的字符
+        classGrade.setDocument(ld);
 
         classMajor = new JTextField();
         classMajor.setFont(new Font("微软雅黑", Font.PLAIN, 15));
@@ -230,7 +238,6 @@ public class ClassListFrame extends JInternalFrame {
 
     protected void editclassinfo() {
         StudentClass studentClass=new StudentClass();
-
         studentClass.setId(dtm.getValueAt(classListTable.getSelectedRow(), 0).toString());
         System.out.println(studentClass.getId());
         studentClass.setName(dtm.getValueAt(classListTable.getSelectedRow(),1).toString());
@@ -254,7 +261,6 @@ public class ClassListFrame extends JInternalFrame {
 		}
 		class_label_count.setText(label_string());
 		queryAllClass();//删除完后刷新表格
-	    
 	}
 
 	//点击表格事件设置
@@ -312,6 +318,7 @@ public class ClassListFrame extends JInternalFrame {
             v.add(studentClass.getSecondary());
             v.add(studentClass.getMajor());
             v.add(studentClass.getInfo());
+            v.add(studentClass.getStudentnumber());
             dtm.addRow(v);
         }
 
@@ -341,6 +348,7 @@ public class ClassListFrame extends JInternalFrame {
             v.add(studentClass.getSecondary());
             v.add(studentClass.getMajor());
             v.add(studentClass.getInfo());
+            v.add(studentClass.getStudentnumber());
             dtm.addRow(v);
         }
         //按钮默认设置不可点击

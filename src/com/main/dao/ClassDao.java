@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import com.main.model.StudentClass;
 
 /**
- * @author Lonely_Fantasy
+ * @author codebiyang
  * @version 创建时间：2021年6月14日 下午3:40:45
  * 类说明
  */
@@ -32,7 +32,7 @@ public class ClassDao extends BasicDao{
                 return resultString;
             }
 
-            //寻找键值是否重复，重复则count自增并继续判断直到为未使用键值为止
+            //寻找表键值是否重复，重复则count自增并继续判断直到为未使用键值为止
             this.pStatement = this.con.prepareStatement(sqlStr2);
             this.pStatement.setString(1, tempClass.getId() + ++count);
             while(executeQuery.next()) {
@@ -77,6 +77,7 @@ public class ClassDao extends BasicDao{
                 tempClass.setSecondary(executeQuery.getString(4));
                 tempClass.setMajor(executeQuery.getString(5));
                 tempClass.setInfo(executeQuery.getString(6));
+                tempClass.setStudentnumber(executeQuery.getInt(7));
                 array.add(tempClass);
             }
         } catch (SQLException e) {
@@ -107,7 +108,7 @@ public class ClassDao extends BasicDao{
                 tempClass2.setSecondary(executeQuery.getString(4));
                 tempClass2.setMajor(executeQuery.getString(5));
                 tempClass2.setInfo(executeQuery.getString(6));
-
+                tempClass.setStudentnumber(executeQuery.getInt(7));
                 arrays.add(tempClass2);
             }
         } catch (SQLException e) {
