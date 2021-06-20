@@ -3,6 +3,8 @@ package com.main.view.studentClass;
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
 import com.main.util.StringUtil;
+import com.main.view.IndexFrame;
+import com.main.view.student.AddStudentFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -183,10 +185,10 @@ public class ClassListFrame extends JInternalFrame {
         deleteButton.setBounds(704, 501, 93, 25);
         getContentPane().add(deleteButton);
 
-        editButton = new JButton("\u7F16\u8F91");
+        editButton = new JButton("编辑");
         editButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		editclassinfo();
         	}
         });
         editButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/editor.png")));
@@ -224,6 +226,22 @@ public class ClassListFrame extends JInternalFrame {
         this.dtm = (DefaultTableModel) classListTable.getModel();
 
         queryAllClass();//打开窗口自动加载全部信息
+    }
+
+    protected void editclassinfo() {
+        StudentClass studentClass=new StudentClass();
+
+        studentClass.setId(dtm.getValueAt(classListTable.getSelectedRow(), 0).toString());
+        System.out.println(studentClass.getId());
+        studentClass.setName(dtm.getValueAt(classListTable.getSelectedRow(),1).toString());
+        System.out.println(studentClass.getName());
+        studentClass.setInfo(dtm.getValueAt(classListTable.getSelectedRow(),5).toString());
+        System.out.println(studentClass.getInfo());
+        if(IndexFrame.editClassFrame== null) {
+            IndexFrame.editClassFrame = new EditClassFrame(studentClass);
+            IndexFrame.desktopPane.add(IndexFrame.editClassFrame);
+        }
+        IndexFrame.editClassFrame.setVisible(true);
     }
 
     //删除班级

@@ -189,4 +189,24 @@ public class ClassDao extends BasicDao{
     	return result;
     	
     }
+    public String editclassinfo(StudentClass studentClass)
+    {
+        String resultString = "编辑失败";
+        String sql="update s_class set name=? and info=? where id=?";
+        try {
+            this.pStatement=this.con.prepareStatement(sql);
+            this.pStatement.setString(1,studentClass.getName());
+            this.pStatement.setString(2,studentClass.getInfo());
+            this.pStatement.setString(3,studentClass.getId());
+            if(this.pStatement.executeUpdate() > 0) {
+                resultString = "修改成功";
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            this.close();
+        }
+        return resultString;
+    }
+
 }

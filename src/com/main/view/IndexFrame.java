@@ -6,6 +6,7 @@ import com.main.view.student.AddStudentFrame;
 import com.main.view.student.StudentListFrame;
 import com.main.view.studentClass.AddClassFrame;
 import com.main.view.studentClass.ClassListFrame;
+import com.main.view.studentClass.EditClassFrame;
 import com.main.view.systemManage.ResetPassword;
 
 import javax.swing.*;
@@ -30,7 +31,7 @@ public class IndexFrame extends JFrame {
     public static AddClassFrame addClassFrame = null;
     public static AddStudentFrame addStudentFrame = null;
     public static StudentListFrame studentListFrame = null;
-
+    public static EditClassFrame editClassFrame = null;
 
     public static UserType userType;//接受登录数据
     public static SystemAdmin admin;//接受登录数据
