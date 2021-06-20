@@ -153,7 +153,7 @@ public class AddClassFrame extends JInternalFrame {
 
         //判断输入框是否填写内容
         if (classNameText.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "班级姓名未输入！", "警告", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "班级名称未输入！", "警告", JOptionPane.WARNING_MESSAGE);
             return;
         }
         if (classInfoText.getText().isEmpty()) {

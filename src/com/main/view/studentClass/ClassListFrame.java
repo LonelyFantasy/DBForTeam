@@ -149,7 +149,7 @@ public class ClassListFrame extends JInternalFrame {
         classGrade.setBounds(364, 445, 105, 25);
         getContentPane().add(classGrade);
         //调用重写的工具类，设置文本框只能输入数字
-        LimitedDocument ld = new LimitedDocument(2);//参数为能输入的最大长度
+        LimitedDocument ld = new LimitedDocument(4);//参数为能输入的最大长度
         ld.setAllowChar("0123456789");//只能输入的字符
         classGrade.setDocument(ld);
 
@@ -163,7 +163,6 @@ public class ClassListFrame extends JInternalFrame {
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 selectSomeoneClass(ae);
-
             }
         });
         btnNewButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/search.png")));
