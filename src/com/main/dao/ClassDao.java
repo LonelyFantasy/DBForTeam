@@ -27,11 +27,9 @@ public class ClassDao extends BasicDao{
             if(executeQuery.next()) {//对当前院系专业的班级数量进行查询统计，用于自动生成班级ID
                 count = executeQuery.getInt(1);
             }
-            System.out.println(count);
             if(count == -1) {//查询发生错误
                 return resultString;
             }
-
             //寻找表键值是否重复，重复则count自增并继续判断直到为未使用键值为止
             this.pStatement = this.con.prepareStatement(sqlStr2);
             this.pStatement.setString(1, tempClass.getId() + ++count);
