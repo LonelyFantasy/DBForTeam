@@ -30,7 +30,7 @@ public class ClassListFrame extends JInternalFrame {
     private JTextArea classInfo;
     private JButton editButton;
     private JButton deleteButton;
-    private JLabel  class_label_count;//班级数量的显示
+    JLabel  class_label_count;//班级数量的显示
     private DefaultTableModel dtm = null;
 
 
@@ -257,6 +257,7 @@ public class ClassListFrame extends JInternalFrame {
         // TODO Auto-generated method stub
         resetButton();
         queryAllClass();
+        class_label_count.setText(label_string());//刷新当前班级数量
     }
 
     //条件搜索

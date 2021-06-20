@@ -91,6 +91,7 @@ public class ResetPassword extends JInternalFrame {
         btnNewButton.setIcon(new ImageIcon(ResetPassword.class.getResource("/images/login.png")));
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setBounds(79, 241, 93, 36);
+        btnNewButton.setFocusPainted(false);//取消按钮虚线
         getContentPane().add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("\u91CD\u7F6E");
@@ -102,6 +103,7 @@ public class ResetPassword extends JInternalFrame {
         });
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(260, 241, 93, 36);
+        btnNewButton_1.setFocusPainted(false);//取消按钮虚线
         getContentPane().add(btnNewButton_1);
 
         setVisible(true);

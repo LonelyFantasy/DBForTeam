@@ -275,6 +275,7 @@ public class StudentListFrame extends JInternalFrame {
 		deleteButton.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/ashbin-fill.png")));
 		deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		deleteButton.setBounds(809, 624, 93, 25);
+		deleteButton.setFocusPainted(false);//取消按钮虚线
 		getContentPane().add(deleteButton);
 		
 		maleRadioBtn = new JRadioButton("男");

@@ -125,6 +125,7 @@ public class AddClassFrame extends JInternalFrame {
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/login.png")));
         btnNewButton.setBounds(70, 308, 109, 38);
+        btnNewButton.setFocusPainted(false);//取消按钮虚线
         getContentPane().add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("\u91CD\u7F6E");
@@ -136,6 +137,7 @@ public class AddClassFrame extends JInternalFrame {
         btnNewButton_1.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/exit.png")));
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(464, 308, 109, 38);
+        btnNewButton_1.setFocusPainted(false);//取消按钮虚线
         getContentPane().add(btnNewButton_1);
 
     }
@@ -149,6 +151,15 @@ public class AddClassFrame extends JInternalFrame {
         String major = this.classMajorComb.getSelectedItem().toString();
         String info = this.classInfoText.getText();
 
+        //判断输入框是否填写内容
+        if(classNameText.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "班级姓名未输入！","警告",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(classInfoText.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "班级信息未输入！","警告",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         //班级编号生成
         String id =String.valueOf(Integer.parseInt(grade)%2000) + "00" + CollegeStructure.majorId[classSecondaryComb.getSelectedIndex()][classMajorComb.getSelectedIndex()];
         StudentClass tempClass = new StudentClass(id, grade, name, secondary, major, info);
@@ -158,6 +169,7 @@ public class AddClassFrame extends JInternalFrame {
         
         if(IndexFrame.classListFrame != null) {
         	IndexFrame.classListFrame.queryAllClass();
+        	IndexFrame.classListFrame.class_label_count.setText(IndexFrame.classListFrame.label_string());//添加班级后重新刷新表格并自动统计班级数量
         }
     }
 

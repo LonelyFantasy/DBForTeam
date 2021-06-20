@@ -354,11 +354,6 @@ public class AddStudentFrame extends JInternalFrame {
 		this.tempStudent = null;//重置窗口状态，以便下次判断窗口状态
 	}
 
-	//编辑学生页面重置按钮
-	protected void editFrameResetButton() {
-		
-		
-	}
 
 	//重写这个窗体的关闭按键方法，防止窗口重复出现
     public void doDefaultCloseAction() {
