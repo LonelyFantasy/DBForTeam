@@ -3,7 +3,6 @@ package com.main.view.studentClass;
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
 import com.main.util.StringUtil;
-import com.mysql.cj.protocol.result.AbstractResultsetRow;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -11,13 +10,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Vector;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.Vector;
 
 /**
- * @author Lonely_Fantasy
+ * @author codebiyang
  * @version 创建时间：2021年6月14日 下午5:46:52
  * 类说明
  */

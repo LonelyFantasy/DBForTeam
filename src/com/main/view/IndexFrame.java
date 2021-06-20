@@ -262,14 +262,10 @@ public class IndexFrame extends JFrame {
 		}
     }
 
-	
     //desktopPane的get方法
     public JDesktopPane getDesktopPane() {
 		return desktopPane;
 	}
 
-
-
-    
 }
 

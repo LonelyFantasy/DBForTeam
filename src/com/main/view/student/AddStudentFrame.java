@@ -1,17 +1,5 @@
 package com.main.view.student;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-
 import com.main.dao.ClassDao;
 import com.main.dao.StudentDao;
 import com.main.model.Student;
@@ -21,17 +9,14 @@ import com.main.util.LimitedDocument;
 import com.main.util.StringUtil;
 import com.main.view.IndexFrame;
 
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 
 /**
-* @author Lonely_Fantasy 
+* @author codebiyang
 * @version 创建时间：2021年6月17日 上午11:05:44
 * 类说明
 */
@@ -133,7 +118,7 @@ public class AddStudentFrame extends JInternalFrame {
 		studentGradeComb = new JComboBox(CollegeStructure.gradeString);
 		studentGradeComb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setStduentClass();
+				setStudentClass();
 			}
 		});
 		studentGradeComb.setBounds(138, 125, 92, 25);
@@ -143,7 +128,7 @@ public class AddStudentFrame extends JInternalFrame {
 		studentSecondaryComb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddStudentFrame.this.studentMajorComb.setModel(new DefaultComboBoxModel(CollegeStructure.major[studentSecondaryComb.getSelectedIndex()]));
-				setStduentClass();
+				setStudentClass();
 			}
 		});
 		studentSecondaryComb.setBounds(138, 188, 198, 25);
@@ -152,7 +137,7 @@ public class AddStudentFrame extends JInternalFrame {
 		studentMajorComb = new JComboBox(CollegeStructure.major[0]);
 		studentMajorComb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setStduentClass();
+				setStudentClass();
 			}
 		});
 		studentMajorComb.setBounds(138, 246, 198, 25);
@@ -263,7 +248,7 @@ public class AddStudentFrame extends JInternalFrame {
 			return;
 		}
 		//此处防止在添加过程中如果选择的班级突然被删除的情况
-		if(new ClassDao().querySomeClass(classIdString) == false) {//查询班级的新方法
+		if(!new ClassDao().querySomeClass(classIdString)) {//查询班级的新方法
 			JOptionPane.showMessageDialog(this, "查无此班级，请重新选择班级！");
 			resetButton();//实时刷新班级
 			return;
@@ -314,7 +299,7 @@ public class AddStudentFrame extends JInternalFrame {
 	}
 	
 	//点击ComBoBox后更新班级选择事件
-    protected void setStduentClass() {
+    protected void setStudentClass() {
 		// TODO Auto-generated method stub
 		ClassDao classDao = new ClassDao();
 		this.arrayClass = classDao.querySomeClass(studentGradeComb.getSelectedItem().toString(), studentSecondaryComb.getSelectedItem().toString(), studentMajorComb.getSelectedItem().toString());
