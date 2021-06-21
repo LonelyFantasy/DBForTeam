@@ -297,7 +297,8 @@ public class StudentListFrame extends JInternalFrame {
         deleteButton.setFocusable(false);
 
         count_label = new JLabel("");
-        count_label.setBounds(226, 611, 75, 38);
+        count_label.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+        count_label.setBounds(226, 611, 100, 38);
         count_label.setText(label_string());
         getContentPane().add(count_label);
 
@@ -479,7 +480,7 @@ public class StudentListFrame extends JInternalFrame {
 
     public String label_string() {
         int a = student_count();
-        String str = "学生数量：" + a;
+        String str = "总学生数量：" + a;
         return str;
     }
 }

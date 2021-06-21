@@ -131,6 +131,14 @@ public class ResetPassword extends JInternalFrame {
             return;
         }
 
+        if(newPasswordString.length() < 7){
+            JOptionPane.showMessageDialog(this, "新密码长度至少为8位！");
+            return;
+        }
+        if(!newPasswordString.equals(confirmPasswordString)){
+            JOptionPane.showMessageDialog(this, "两次新密码不一致！");
+            return;
+        }
 
         //判断用户类型
         if("系统管理员".equals(IndexFrame.userType.getName())) {
