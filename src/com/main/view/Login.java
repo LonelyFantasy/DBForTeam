@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * @author Lonely_Fantasy
  * @version 创建时间：2021年6月10日 下午1:29:44
- * 类说明123
+ * 类说明：启动页面
  */
 public class Login extends JFrame {
 
@@ -79,11 +79,6 @@ public class Login extends JFrame {
         adminPassword.setFont(new Font("微软雅黑", Font.BOLD, 16));
         adminPassword.setBounds(184, 122, 155, 28);
         contentPane.add(adminPassword);
-
-        JLabel lblNewLabel_1_1_1 = new JLabel("\u7528\u6237\u7C7B\u578B\uFF1A");
-        lblNewLabel_1_1_1.setFont(new Font("微软雅黑", Font.BOLD, 16));
-        lblNewLabel_1_1_1.setBounds(110, 154, 83, 28);
-//        contentPane.add(lblNewLabel_1_1_1);
 
         user_type_combobox = new JComboBox();
         user_type_combobox.setFont(new Font("微软雅黑", Font.PLAIN, 14));

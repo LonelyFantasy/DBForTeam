@@ -163,7 +163,7 @@ public class ClassListFrame extends JInternalFrame {
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 selectSomeoneClass(ae);
-            }
+            }//搜索
         });
         btnNewButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/search.png")));
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));

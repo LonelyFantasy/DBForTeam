@@ -59,7 +59,6 @@ public class ResetPassword extends JInternalFrame {
         getContentPane().add(lblNewLabel_1_1_1);
 
         String userTypeString = IndexFrame.userType.getName();
-        String adminNameString = IndexFrame.admin.getName();
 
         JLabel currentUsername = new JLabel(userTypeString);
         currentUsername.setHorizontalAlignment(SwingConstants.CENTER);
@@ -83,11 +82,7 @@ public class ResetPassword extends JInternalFrame {
         getContentPane().add(confirmPassword);
 
         JButton btnNewButton = new JButton("\u4FEE\u6539");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                confirmReset(ae);
-            }
-        });
+        btnNewButton.addActionListener(this::confirmReset);
         btnNewButton.setIcon(new ImageIcon(ResetPassword.class.getResource("/images/login.png")));
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setBounds(79, 241, 93, 36);
@@ -96,11 +91,7 @@ public class ResetPassword extends JInternalFrame {
 
         JButton btnNewButton_1 = new JButton("\u91CD\u7F6E");
         btnNewButton_1.setIcon(new ImageIcon(ResetPassword.class.getResource("/images/exit.png")));
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                resetButton();
-            }
-        });
+        btnNewButton_1.addActionListener(e -> resetButton());
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(260, 241, 93, 36);
         btnNewButton_1.setFocusPainted(false);//取消按钮虚线
@@ -139,11 +130,9 @@ public class ResetPassword extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "两次新密码不一致！");
             return;
         }
-
-        //判断用户类型
+        //AdminDao
         if("系统管理员".equals(IndexFrame.userType.getName())) {
             AdminDao adminDao = new AdminDao();
-            System.out.println(oldPasswordString + "\n" + IndexFrame.admin.getPassword());
             if(!StringUtil.isSame(oldPasswordString, IndexFrame.admin.getPassword())) {//旧密码检查
                 JOptionPane.showMessageDialog(this, "原密码不正确！");
                 return;
@@ -151,14 +140,6 @@ public class ResetPassword extends JInternalFrame {
             JOptionPane.showMessageDialog(this, adminDao.resetPassword(IndexFrame.admin, newPasswordString));
             IndexFrame.admin.setPassword(newPasswordString);//更新当前程序缓存的密码
             resetButton();
-            return;
-        }
-        if("学生".equals(IndexFrame.userType.getName())) {
-
-            return;
-        }
-        if("教师".equals(IndexFrame.userType.getName())) {
-
             return;
         }
 

@@ -1,17 +1,15 @@
 package com.main.dao;
-/**
- * @author Lonely_Fantasy
+/*
+  @author Lonely_Fantasy
  * @version 创建时间：2021年6月17日 下午5:18:44
  * 类说明
  */
 
+import com.main.model.Student;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import com.main.model.Student;
-import com.main.model.StudentClass;
 
 public class StudentDao extends BasicDao {
 
@@ -47,13 +45,7 @@ public class StudentDao extends BasicDao {
 
             //插入记录
             this.pStatement = this.con.prepareStatement(sqlStr3);
-            //0-10的学生，保证学号编号为10位
             String tempString = tempStudent.getId();
-
-            if (tempString.length() == 1) {
-
-            }
-            System.out.println(tempString);
             tempStudent.setId(tempString);
             this.pStatement.setString(1, tempStudent.getId());
             this.pStatement.setString(2, tempStudent.getName());
@@ -78,8 +70,8 @@ public class StudentDao extends BasicDao {
     }
 
     //获取s_student表信息
-    public ArrayList<Student> quaryAllstudent() {
-        ArrayList<Student> array = new ArrayList<Student>();
+    public ArrayList<Student> queryAllStudent() {
+        ArrayList<Student> array = new ArrayList<>();
         String sqlString = "SELECT * FROM s_student";
         try {
             this.pStatement = this.con.prepareStatement(sqlString);
@@ -110,7 +102,7 @@ public class StudentDao extends BasicDao {
 
     //按条件查询学生
     public ArrayList<Student> querySomeStudent(Student student) {
-        ArrayList<Student> arrayStudent = new ArrayList<Student>();
+        ArrayList<Student> arrayStudent = new ArrayList<>();
 
         //有年龄的查询
         String sqlString = "SELECT * FROM s_student WHERE id LIKE '%" + student.getId()
@@ -258,7 +250,6 @@ public class StudentDao extends BasicDao {
                 if (executeQuery.next()) {//对当前院系专业的学生数量进行查询统计，用于自动生成学生ID
                     count = executeQuery.getInt(1);
                 }
-                System.out.println(count);
                 if (count == -1) {//查询发生错误
                     return resultString;
                 }
@@ -276,10 +267,6 @@ public class StudentDao extends BasicDao {
                 //0-10的学生，保证学号编号为10位
                 String tempString = tempStudent.getId();
 
-                if (tempString.length() == 1) {
-
-                }
-                System.out.println(tempString);
                 tempStudent.setId(tempString);
                 this.pStatement.setString(1, tempStudent.getId());
                 this.pStatement.setString(2, tempStudent.getName());

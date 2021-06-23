@@ -117,11 +117,7 @@ public class AddClassFrame extends JInternalFrame {
         classInfoText.setText("\u8FD9\u4E2A\u73ED\u7EA7\u5F88\u61D2\uFF0C\u4EC0\u4E48\u4FE1\u606F\u90FD\u6CA1\u7559\u4E0B\u3002");
 
         JButton btnNewButton = new JButton("\u6DFB\u52A0");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                addClassButton(ae);
-            }
-        });
+        btnNewButton.addActionListener(this::addClassButton);
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/login.png")));
         btnNewButton.setBounds(70, 308, 109, 38);
@@ -129,11 +125,7 @@ public class AddClassFrame extends JInternalFrame {
         getContentPane().add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("\u91CD\u7F6E");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                resetButton();
-            }
-        });
+        btnNewButton_1.addActionListener(ae -> resetButton());
         btnNewButton_1.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/exit.png")));
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(464, 308, 109, 38);
@@ -179,7 +171,6 @@ public class AddClassFrame extends JInternalFrame {
         // TODO Auto-generated method stub
         this.classInfoText.setText("");
         this.classGradeComb.setSelectedIndex(0);
-        ;
         this.classSecondaryComb.setSelectedIndex(0);
         this.classMajorComb.setModel(new DefaultComboBoxModel(CollegeStructure.major[0]));
         this.classInfoText.setText("这个班级很懒，什么信息都没留下。");

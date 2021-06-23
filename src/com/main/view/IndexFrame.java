@@ -12,8 +12,6 @@ import com.main.view.systemManage.ResetPassword;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 
 /**
@@ -23,7 +21,6 @@ import java.beans.PropertyVetoException;
  */
 public class IndexFrame extends JFrame {
 
-    private JPanel contentPane;
     public static JDesktopPane desktopPane;
 
     public static ResetPassword resetPassword = null;
@@ -59,21 +56,13 @@ public class IndexFrame extends JFrame {
         menuBar.add(mnNewMenu);
 
         JMenuItem mntmNewMenuItem = new JMenuItem("\u6DFB\u52A0\u73ED\u7EA7");
-        mntmNewMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                addStudentClass();
-            }
-        });
+        mntmNewMenuItem.addActionListener(ae -> addStudentClass());
         mntmNewMenuItem.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/add-circle.png")));
         mntmNewMenuItem.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu.add(mntmNewMenuItem);
 
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u73ED\u7EA7\u5217\u8868");
-        mntmNewMenuItem_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                studentClassList();
-            }
-        });
+        mntmNewMenuItem_1.addActionListener(ae -> studentClassList());
         mntmNewMenuItem_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
         mntmNewMenuItem_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu.add(mntmNewMenuItem_1);
@@ -84,21 +73,13 @@ public class IndexFrame extends JFrame {
         menuBar.add(mnNewMenu_1);
 
         JMenuItem mntmNewMenuItem_2 = new JMenuItem("添加学生");
-        mntmNewMenuItem_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		addStudentInfo();
-        	}
-        });
+        mntmNewMenuItem_2.addActionListener(e -> addStudentInfo());
         mntmNewMenuItem_2.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/add-circle.png")));
         mntmNewMenuItem_2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu_1.add(mntmNewMenuItem_2);
 
         JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("学生列表");
-        mntmNewMenuItem_1_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		studentList();
-        	}
-        });
+        mntmNewMenuItem_1_1.addActionListener(e -> studentList());
         mntmNewMenuItem_1_1.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/menu.png")));
         mntmNewMenuItem_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         mnNewMenu_1.add(mntmNewMenuItem_1_1);
@@ -109,31 +90,19 @@ public class IndexFrame extends JFrame {
         menuBar.add(mnNewMenu_4);
 
         JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u8D26\u6237\u4FE1\u606F");
-        mntmNewMenuItem_8.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                myAccount();
-            }
-        });
+        mntmNewMenuItem_8.addActionListener(ae -> myAccount());
         mntmNewMenuItem_8.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/browse.png")));
         mntmNewMenuItem_8.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         mnNewMenu_4.add(mntmNewMenuItem_8);
 
         JMenuItem mntmNewMenuItem_9 = new JMenuItem("\u4FEE\u6539\u5BC6\u7801");
-        mntmNewMenuItem_9.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                resetPassword();
-            }
-        });
+        mntmNewMenuItem_9.addActionListener(ae -> resetPassword());
         mntmNewMenuItem_9.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/lock.png")));
         mntmNewMenuItem_9.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         mnNewMenu_4.add(mntmNewMenuItem_9);
 
         JMenuItem mntmNewMenuItem_11 = new JMenuItem("\u9000\u51FA\u7CFB\u7EDF");
-        mntmNewMenuItem_11.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        mntmNewMenuItem_11.addActionListener(e -> System.exit(0));
         mntmNewMenuItem_11.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/exit.png")));
         mntmNewMenuItem_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         mnNewMenu_4.add(mntmNewMenuItem_11);
@@ -144,16 +113,12 @@ public class IndexFrame extends JFrame {
         menuBar.add(mnNewMenu_5);
 
         JMenuItem mntmNewMenuItem_10 = new JMenuItem("\u5173\u4E8E\u8F6F\u4EF6");
-        mntmNewMenuItem_10.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                aboutSoftware();
-            }
-        });
+        mntmNewMenuItem_10.addActionListener(e -> aboutSoftware());
         mntmNewMenuItem_10.setIcon(new ImageIcon(IndexFrame.class.getResource("/images/help.png")));
         mntmNewMenuItem_10.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         mnNewMenu_5.add(mntmNewMenuItem_10);
 
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
@@ -167,40 +132,40 @@ public class IndexFrame extends JFrame {
 
     //学生管理----学生列表
     protected void studentList() {
-		// TODO Auto-generated method stub
-		if(studentListFrame == null) {
-			studentListFrame = new StudentListFrame();
-			desktopPane.add(studentListFrame);
-		}
-		studentListFrame.setVisible(true);
-		//保持窗体最前
-		try {
-			studentListFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-	}
+        // TODO Auto-generated method stub
+        if (studentListFrame == null) {
+            studentListFrame = new StudentListFrame();
+            desktopPane.add(studentListFrame);
+        }
+        studentListFrame.setVisible(true);
+        //保持窗体最前
+        try {
+            studentListFrame.setSelected(true);
+        } catch (PropertyVetoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-	//学生管理----添加学生
+    }
+
+    //学生管理----添加学生
     protected static void addStudentInfo() {
-		// TODO Auto-generated method stub
-		if(addStudentFrame == null) {
-			addStudentFrame = new AddStudentFrame();
-			desktopPane.add(addStudentFrame);
-		}
-		addStudentFrame.setVisible(true);
-		//保持窗体最前
-		try {
-			addStudentFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        // TODO Auto-generated method stub
+        if (addStudentFrame == null) {
+            addStudentFrame = new AddStudentFrame();
+            desktopPane.add(addStudentFrame);
+        }
+        addStudentFrame.setVisible(true);
+        //保持窗体最前
+        try {
+            addStudentFrame.setSelected(true);
+        } catch (PropertyVetoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	//更多----关于软件
+    //更多----关于软件
     protected void aboutSoftware() {
         // TODO Auto-generated method stub
         JOptionPane.showMessageDialog(null, "使用Java Swing开发\n数据库使用MySQL", "关于软件", JOptionPane.INFORMATION_MESSAGE);
@@ -222,11 +187,11 @@ public class IndexFrame extends JFrame {
         classListFrame.setVisible(true);
         //保持窗体最前
         try {
-			classListFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            classListFrame.setSelected(true);
+        } catch (PropertyVetoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     //班级管理----添加班级
@@ -237,13 +202,13 @@ public class IndexFrame extends JFrame {
             desktopPane.add(addClassFrame);
         }
         addClassFrame.setVisible(true);
-      //保持窗体最前
+        //保持窗体最前
         try {
-        	addClassFrame.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            addClassFrame.setSelected(true);
+        } catch (PropertyVetoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     //系统管理员----修改密码
@@ -254,19 +219,14 @@ public class IndexFrame extends JFrame {
             desktopPane.add(resetPassword);
         }
         resetPassword.setVisible(true);
-      //保持窗体最前
+        //保持窗体最前
         try {
-        	resetPassword.setSelected(true);
-		} catch (PropertyVetoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            resetPassword.setSelected(true);
+        } catch (PropertyVetoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-
-    //desktopPane的get方法
-    public JDesktopPane getDesktopPane() {
-		return desktopPane;
-	}
 
 }
 

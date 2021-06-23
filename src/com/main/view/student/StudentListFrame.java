@@ -1,7 +1,6 @@
 package com.main.view.student;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.BorderFactory;
@@ -11,12 +10,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import com.main.dao.ClassDao;
 import com.main.dao.StudentDao;
 import com.main.model.Student;
-import com.main.model.StudentClass;
 import com.main.util.LimitedDocument;
-import com.main.util.StringUtil;
 import com.main.view.IndexFrame;
 
 import javax.swing.JLabel;
@@ -430,7 +426,7 @@ public class StudentListFrame extends JInternalFrame {
     public void queryAllStudent() {
         dtm.setRowCount(0);
 
-        List<Student> allStudentList = new StudentDao().quaryAllstudent();
+        List<Student> allStudentList = new StudentDao().queryAllStudent();
 
         for (Student stu : allStudentList) {
             Vector v = new Vector();
@@ -473,7 +469,7 @@ public class StudentListFrame extends JInternalFrame {
     public int student_count()//计算班级数量的函数
     {
         StudentDao studentDao = new StudentDao();
-        ArrayList<Student> student_count = studentDao.quaryAllstudent();
+        ArrayList<Student> student_count = studentDao.queryAllStudent();
 
         return student_count.size();
     }
