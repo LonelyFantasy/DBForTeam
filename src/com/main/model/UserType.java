@@ -7,13 +7,11 @@ package com.main.model;
  */
 public enum UserType {
 
-    ADMIN("系统管理员", 0),
-    TEACHER("老师", 1);
-
+    ADMIN("系统管理员", 0);
     private String name;
     private int index;
 
-    private UserType(String name, int index) {
+    UserType(String name, int index) {
         this.name = name;
         this.index = index;
     }

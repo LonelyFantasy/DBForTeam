@@ -1,28 +1,14 @@
 package com.main.view.studentClass;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
 import com.main.util.CollegeStructure;
 import com.main.view.IndexFrame;
 
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 /**
  * @author Lonely_Fantasy
@@ -100,10 +86,8 @@ public class AddClassFrame extends JInternalFrame {
         getContentPane().add(classMajorComb);
 
         classSecondaryComb = new JComboBox(new DefaultComboBoxModel(CollegeStructure.secondaryString));
-        classSecondaryComb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {//点击不同的学院显示出不同的专业
-                AddClassFrame.this.classMajorComb.setModel(new DefaultComboBoxModel(CollegeStructure.major[AddClassFrame.this.classSecondaryComb.getSelectedIndex()]));
-            }
+        classSecondaryComb.addActionListener(e -> {//点击不同的学院显示出不同的专业
+            AddClassFrame.this.classMajorComb.setModel(new DefaultComboBoxModel(CollegeStructure.major[AddClassFrame.this.classSecondaryComb.getSelectedIndex()]));
         });
         classSecondaryComb.setFont(new Font("微软雅黑", Font.PLAIN, 14));
         classSecondaryComb.setBounds(164, 112, 143, 25);
@@ -138,9 +122,9 @@ public class AddClassFrame extends JInternalFrame {
     protected void addClassButton(ActionEvent ae) {
         // TODO Auto-generated method stub
         String name = this.classNameText.getText();
-        String grade = this.classGradeComb.getSelectedItem().toString();
-        String secondary = this.classSecondaryComb.getSelectedItem().toString();
-        String major = this.classMajorComb.getSelectedItem().toString();
+        String grade = Objects.requireNonNull(this.classGradeComb.getSelectedItem()).toString();
+        String secondary = Objects.requireNonNull(this.classSecondaryComb.getSelectedItem()).toString();
+        String major = Objects.requireNonNull(this.classMajorComb.getSelectedItem()).toString();
         String info = this.classInfoText.getText();
 
         //判断输入框是否填写内容
@@ -153,7 +137,7 @@ public class AddClassFrame extends JInternalFrame {
             return;
         }
         //班级编号生成
-        String id = String.valueOf(Integer.parseInt(grade) % 2000) + "00" + CollegeStructure.majorId[classSecondaryComb.getSelectedIndex()][classMajorComb.getSelectedIndex()];
+        String id = Integer.parseInt(grade) % 2000 + "00" + CollegeStructure.majorId[classSecondaryComb.getSelectedIndex()][classMajorComb.getSelectedIndex()];
         StudentClass tempClass = new StudentClass(id, grade, name, secondary, major, info);
 
         ClassDao classDao = new ClassDao();

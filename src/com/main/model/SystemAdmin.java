@@ -6,18 +6,10 @@ package com.main.model;
  */
 public class SystemAdmin {
 
-	private int id;
+	private final int id;
 	private String name;
 	private String password;
 
-	public SystemAdmin() {
-
-	}
-
-	public SystemAdmin(String name, String password) {
-		this.name = name;
-		this.password = password;
-	}
 
 	public SystemAdmin(int id, String name, String password) {
 		this.id = id;
@@ -28,10 +20,6 @@ public class SystemAdmin {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

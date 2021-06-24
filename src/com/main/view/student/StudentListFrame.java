@@ -1,35 +1,20 @@
 package com.main.view.student;
 
-import java.awt.Color;
-
-import javax.swing.JInternalFrame;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
 import com.main.dao.StudentDao;
 import com.main.model.Student;
 import com.main.util.LimitedDocument;
 import com.main.view.IndexFrame;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * @author Lonely_Fantasy
@@ -44,11 +29,8 @@ public class StudentListFrame extends JInternalFrame {
     private JTextField studentAgeText;
     private JTextField studentMajorText;
     private JTextField studentClassNameText;
-    private JLabel lblNewLabel_2;
     private JTextField studentIdText;
     private JButton editButton;
-    private JButton btnNewButton_1;
-    private JButton btnNewButton_2;
     private JButton deleteButton;
     private JRadioButton maleRadioBtn;
     private JRadioButton femaleRadioBtn;
@@ -217,7 +199,7 @@ public class StudentListFrame extends JInternalFrame {
         studentClassNameText.setBounds(797, 520, 105, 25);
         getContentPane().add(studentClassNameText);
 
-        lblNewLabel_2 = new JLabel("学号");
+        JLabel lblNewLabel_2 = new JLabel("学号");
         lblNewLabel_2.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/namecard.png")));
         lblNewLabel_2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         lblNewLabel_2.setBounds(10, 624, 81, 25);
@@ -230,44 +212,28 @@ public class StudentListFrame extends JInternalFrame {
         getContentPane().add(studentIdText);
 
         editButton = new JButton("编辑");
-        editButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                editStudentInfo();
-            }
-        });
+        editButton.addActionListener(e -> editStudentInfo());
         editButton.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/editor.png")));
         editButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         editButton.setBounds(549, 624, 93, 25);
         getContentPane().add(editButton);
 
-        btnNewButton_1 = new JButton("搜索");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                queryButton();
-            }
-        });
+        JButton btnNewButton_1 = new JButton("搜索");
+        btnNewButton_1.addActionListener(e -> queryButton());
         btnNewButton_1.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/search.png")));
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(416, 624, 93, 25);
         getContentPane().add(btnNewButton_1);
 
-        btnNewButton_2 = new JButton("清空");
+        JButton btnNewButton_2 = new JButton("清空");
         btnNewButton_2.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/exit.png")));
-        btnNewButton_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                resetButton();
-            }
-        });
+        btnNewButton_2.addActionListener(e -> resetButton());
         btnNewButton_2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_2.setBounds(678, 624, 93, 25);
         getContentPane().add(btnNewButton_2);
 
         deleteButton = new JButton("删除");
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteButton();
-            }
-        });
+        deleteButton.addActionListener(e -> deleteButton());
         deleteButton.setIcon(new ImageIcon(StudentListFrame.class.getResource("/images/ashbin-fill.png")));
         deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         deleteButton.setBounds(809, 624, 93, 25);
@@ -391,7 +357,7 @@ public class StudentListFrame extends JInternalFrame {
         tempStudent.setGrade(studentGradeText.getText());
         tempStudent.setSecondary(studentSecondaryText.getText());
         tempStudent.setMajor(studentMajorText.getText());
-        String sexString = "";
+        String sexString;
         if (maleRadioBtn.isSelected() && !femaleRadioBtn.isSelected()) {
             sexString = "男";
         } else if (!maleRadioBtn.isSelected() && femaleRadioBtn.isSelected()) {
@@ -476,7 +442,6 @@ public class StudentListFrame extends JInternalFrame {
 
     public String label_string() {
         int a = student_count();
-        String str = "总学生数量：" + a;
-        return str;
+        return "总学生数量：" + a;
     }
 }

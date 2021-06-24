@@ -92,9 +92,7 @@ public class StudentClass {
     	// TODO Auto-generated method stub
     	if(obj instanceof StudentClass) {
     		StudentClass studentClass = (StudentClass)obj;
-    		if(studentClass.getName().equals(name) && studentClass.getId().equals(id)) {
-    			return true;
-    		}
+            return studentClass.getName().equals(name) && studentClass.getId().equals(id);
     	}
     	return false;
     }

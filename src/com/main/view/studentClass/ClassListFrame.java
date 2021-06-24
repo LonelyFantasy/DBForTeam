@@ -5,14 +5,11 @@ import com.main.model.StudentClass;
 import com.main.util.LimitedDocument;
 import com.main.util.StringUtil;
 import com.main.view.IndexFrame;
-import com.main.view.student.AddStudentFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -58,7 +55,7 @@ public class ClassListFrame extends JInternalFrame {
         classListTable.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent me) {
-        		AbstractResultsetRow(me);
+        		AbstractResultsetRow();
         	}
         });
         classListTable.setFont(new Font("微软雅黑", Font.BOLD, 14));
@@ -160,11 +157,8 @@ public class ClassListFrame extends JInternalFrame {
         getContentPane().add(classMajor);
 
         JButton btnNewButton = new JButton("\u641C\u7D22");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                selectSomeoneClass(ae);
-            }//搜索
-        });
+        //搜索
+        btnNewButton.addActionListener(ae -> selectSomeoneClass());
         btnNewButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/search.png")));
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setBounds(557, 445, 93, 25);
@@ -172,32 +166,20 @@ public class ClassListFrame extends JInternalFrame {
 
         JButton btnNewButton_1 = new JButton("\u6E05\u7A7A");
         btnNewButton_1.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/exit.png")));
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                resetButton();
-            }
-        });
+        btnNewButton_1.addActionListener(e -> resetButton());
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(557, 501, 93, 25);
         getContentPane().add(btnNewButton_1);
 
         deleteButton = new JButton("\u5220\u9664");
-        deleteButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		deleteButton();
-        	}
-        });
+        deleteButton.addActionListener(e -> deleteButton());
         deleteButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/ashbin-fill.png")));
         deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         deleteButton.setBounds(704, 501, 93, 25);
         getContentPane().add(deleteButton);
 
         editButton = new JButton("编辑");
-        editButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		editclassinfo();
-        	}
-        });
+        editButton.addActionListener(e -> editclassinfo());
         editButton.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/editor.png")));
         editButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         editButton.setBounds(704, 445, 93, 25);
@@ -210,11 +192,7 @@ public class ClassListFrame extends JInternalFrame {
         getContentPane().add(lblNewLabel_1_3);
 
         JButton btnNewButton_1_1 = new JButton("\u5237\u65B0");
-        btnNewButton_1_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                refreshTable();
-            }
-        });
+        btnNewButton_1_1.addActionListener(e -> refreshTable());
         btnNewButton_1_1.setIcon(new ImageIcon(ClassListFrame.class.getResource("/images/exchangerate.png")));
         btnNewButton_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1_1.setBounds(557, 551, 93, 25);
@@ -263,7 +241,7 @@ public class ClassListFrame extends JInternalFrame {
 	}
 
 	//点击表格事件设置
-    protected void AbstractResultsetRow(MouseEvent me) {
+    protected void AbstractResultsetRow() {
 		// TODO Auto-generated method stub
 		this.className.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 1).toString());//班级名称
 		this.classGrade.setText(dtm.getValueAt(this.classListTable.getSelectedRow(), 2).toString());//所属年级
@@ -283,7 +261,7 @@ public class ClassListFrame extends JInternalFrame {
     }
 
     //条件搜索
-    protected void selectSomeoneClass(ActionEvent ae) {
+    protected void selectSomeoneClass() {
         // TODO Auto-generated method stub
         String nameString = this.className.getText();
         String gradeString = this.classGrade.getText();
@@ -371,7 +349,6 @@ public class ClassListFrame extends JInternalFrame {
     public String label_string()//显示班级数量的文字提示
     {
     	int a=class_count();
-    	String str="班级数量："+a;
-    	return str;
+        return "班级数量："+a;
     }
 }

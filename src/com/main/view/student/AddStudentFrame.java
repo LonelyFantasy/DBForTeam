@@ -154,12 +154,7 @@ public class AddStudentFrame extends JInternalFrame {
             studentClassComb = new JComboBox(this.arrayClass.toArray());
             studentClassId = new JLabel(arrayClass.get(0).getId());
         }
-        studentClassComb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                AddStudentFrame.this.studentClassId.setText(arrayClass.get(studentClassComb.getSelectedIndex()).getId());
-
-            }
-        });
+        studentClassComb.addActionListener(e -> AddStudentFrame.this.studentClassId.setText(arrayClass.get(studentClassComb.getSelectedIndex()).getId()));
         if (this.arrayClass.isEmpty()) {
             studentClassComb.setEnabled(false);//当无法查询到班级时，班级选择栏的编辑状态为false
         }
@@ -189,24 +184,18 @@ public class AddStudentFrame extends JInternalFrame {
 
 
         JButton btnNewButton = new JButton("添加");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                confirmButton();
-            }
-        });
+        btnNewButton.addActionListener(e -> confirmButton());
         btnNewButton.setIcon(new ImageIcon(AddStudentFrame.class.getResource("/images/login.png")));
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setBounds(51, 423, 109, 38);
         getContentPane().add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("重置");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (AddStudentFrame.this.tempStudent == null) {
-                    resetButton();
-                } else {
-                    editStudentInfo(AddStudentFrame.this.tempStudent);
-                }
+        btnNewButton_1.addActionListener(e -> {
+            if (AddStudentFrame.this.tempStudent == null) {
+                resetButton();
+            } else {
+                editStudentInfo(AddStudentFrame.this.tempStudent);
             }
         });
         btnNewButton_1.setIcon(new ImageIcon(AddStudentFrame.class.getResource("/images/exit.png")));

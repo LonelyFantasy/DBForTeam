@@ -8,9 +8,7 @@ public class StringUtil {
 
     //判断字符串是否为空
     public static boolean isEmpty(String str) {
-        if("".equals(str) || str == null)
-            return true;
-        return false;
+        return "".equals(str) || str == null;
     }
 
     //判断两个密码是否输入相同

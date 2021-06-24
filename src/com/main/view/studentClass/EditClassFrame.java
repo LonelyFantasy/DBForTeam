@@ -2,13 +2,10 @@ package com.main.view.studentClass;
 
 import com.main.dao.ClassDao;
 import com.main.model.StudentClass;
-import com.main.util.CollegeStructure;
 import com.main.view.IndexFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EditClassFrame extends JInternalFrame {
     private JTextField classNameText;
@@ -51,11 +48,7 @@ public class EditClassFrame extends JInternalFrame {
         classInfoText.setText(studentClass.getInfo());
 
         JButton btnNewButton = new JButton("编辑");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                editbutton(studentClass);
-            }
-        });
+        btnNewButton.addActionListener(ae -> editbutton(studentClass));
         btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/login.png")));
         btnNewButton.setBounds(70, 308, 109, 38);
@@ -63,11 +56,7 @@ public class EditClassFrame extends JInternalFrame {
         getContentPane().add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("重置");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                resetButton(studentClass);
-            }
-        });
+        btnNewButton_1.addActionListener(ae -> resetButton(studentClass));
         btnNewButton_1.setIcon(new ImageIcon(AddClassFrame.class.getResource("/images/exit.png")));
         btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnNewButton_1.setBounds(464, 308, 109, 38);

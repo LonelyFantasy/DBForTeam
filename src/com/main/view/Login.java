@@ -7,8 +7,6 @@ import com.main.model.UserType;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Lonely_Fantasy
@@ -17,7 +15,6 @@ import java.awt.event.ActionListener;
  */
 public class Login extends JFrame {
 
-    private JPanel contentPane;
     private JTextField adminName;
     private JPasswordField adminPassword;
     private JComboBox user_type_combobox;
@@ -26,14 +23,12 @@ public class Login extends JFrame {
      * Launch the application.
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Login frame = new Login();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                Login frame = new Login();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -47,7 +42,7 @@ public class Login extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         setResizable(false);
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -87,11 +82,7 @@ public class Login extends JFrame {
 //        contentPane.add(user_type_combobox);
 
         JButton btnLogin = new JButton("\u767B\u5F55");
-        btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                confirmLogin(ae);
-            }
-        });
+        btnLogin.addActionListener(ae -> confirmLogin());
         btnLogin.setIcon(new ImageIcon(Login.class.getResource("/images/login.png")));
         btnLogin.setFont(new Font("微软雅黑", Font.PLAIN, 14));
         btnLogin.setFocusable(false);
@@ -99,11 +90,7 @@ public class Login extends JFrame {
         contentPane.add(btnLogin);
 
         JButton btnExit = new JButton("\u9000\u51FA");
-        btnExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        btnExit.addActionListener(e -> System.exit(0));
         btnExit.setIcon(new ImageIcon(Login.class.getResource("/images/exit.png")));
         btnExit.setFont(new Font("微软雅黑", Font.PLAIN, 14));
         btnExit.setFocusable(false);
@@ -118,12 +105,10 @@ public class Login extends JFrame {
 
     }
 
-    protected void confirmLogin(ActionEvent ae) {
+    protected void confirmLogin() {
         // TODO Auto-generated method stub
         String nameString1 = this.adminName.getText();
         String passwordString1 = this.adminPassword.getText();
-        String nameString2 = this.adminName.getText();
-        String passwordString2 = this.adminPassword.getText();
         UserType userType = (UserType) this.user_type_combobox.getSelectedItem();
         if ("系统管理员".equals(userType.getName())) {
             AdminDao adminDao = new AdminDao();
@@ -136,17 +121,5 @@ public class Login extends JFrame {
             indexFrame.setVisible(true);
             this.dispose();
         }
-//        if ("老师".equals(userType.getName())) {
-//        	TeacherDao teacherDao = new TeacherDao();
-//            Teacher teacher = teacherDao.selectTeacher(nameString2, passwordString2);
-//            if (teacher == null) {
-//                JOptionPane.showMessageDialog(this, "用户名或者密码错误！！");
-//                return;
-//            }
-//            IndexFrameForTeacher indexFrameForTeacher = new IndexFrameForTeacher(userType, teacher, passwordString2);
-//            indexFrameForTeacher.setVisible(true);
-//            this.dispose();
-//            return;
-//        }
     }
 }
